@@ -1,2 +1,1 @@
-# generator
-Ext.JS framework TypeScript type definitions generator.
+# Ext.JS Framework TypeScript Type Definitions Generator
