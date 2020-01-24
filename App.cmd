@@ -1,0 +1,1 @@
+@start "" ./ExtTsTypesGenerator/App/bin/Debug/Generator.exe

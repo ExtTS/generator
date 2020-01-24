@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F6BAD34D-D7F7-4C2E-BB2B-97CEA825C89C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExtTs</RootNamespace>
+    <AssemblyName>ExtTs</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Tom Flidr - .NET.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Desharp, Version=1.3.0.3, Culture=neutral, PublicKeyToken=cd60d985c52bcd6f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Desharp.1.3.0.3\lib\net40\Desharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExtTypes\ExtClasses\ConfigProperty.cs" />
+    <Compile Include="Processors\Extractor.cs" />
+    <Compile Include="ExtTypes\Enums\ClassType.cs" />
+    <Compile Include="ExtTypes\Enums\ExistenceReasonType.cs" />
+    <Compile Include="ExtTypes\Enums\JsDocsType.cs" />
+    <Compile Include="ExtTypes\Enums\MemberType.cs" />
+    <Compile Include="ExtTypes\Enums\SpecialParamMatch.cs" />
+    <Compile Include="ExtTypes\Enums\TypeDefinitionPlace.cs" />
+    <Compile Include="ExtTypes\ExtClasses\Configuration.cs" />
+    <Compile Include="ExtTypes\ExtClasses\Event.cs" />
+    <Compile Include="ExtTypes\ExtClasses\Member.cs" />
+    <Compile Include="ExtTypes\ExtClasses\Method.cs" />
+    <Compile Include="ExtTypes\ExtClasses\NameInfo.cs" />
+    <Compile Include="ExtTypes\ExtClasses\Param.cs" />
+    <Compile Include="ExtTypes\ExtClasses\Indexer.cs" />
+    <Compile Include="ExtTypes\ExtClasses\Callback.cs" />
+    <Compile Include="ExtTypes\ExtClasses\Property.cs" />
+    <Compile Include="ExtTypes\Structs\AccessModifiers.cs" />
+    <Compile Include="ExtTypes\Structs\ExistenceReason.cs" />
+    <Compile Include="ExtTypes\Structs\Members.cs" />
+    <Compile Include="ExtTypes\Structs\MethodParams.cs" />
+    <Compile Include="ExtTypes\Structs\ParsedTypes.cs" />
+    <Compile Include="ExtTypes\Structs\SpecialParams.cs" />
+    <Compile Include="ExtTypes\Structs\TypeDefinitionSource.cs" />
+    <Compile Include="Processors\JsDuck.cs" />
+    <Compile Include="Processors\Preparer.cs" />
+    <Compile Include="Processors\Consolidator.cs" />
+    <Compile Include="ExtTypes\ExtClass.cs" />
+    <Compile Include="ExtTypes\Enums\AccessModifier.cs" />
+    <Compile Include="ExtTypes\Structs\JavascriptInternals.cs" />
+    <Compile Include="Processors\InheritanceResolver\Methods.cs" />
+    <Compile Include="Processors\InheritanceResolver\Properties.cs" />
+    <Compile Include="Processors\Reader\ParamCallback.cs" />
+    <Compile Include="Processors\ResultsGenerator\Event.cs" />
+    <Compile Include="Processors\ResultsGenerator\Configuration.cs" />
+    <Compile Include="Processors\ResultsGenerator\MethodWithProp.cs" />
+    <Compile Include="Processors\ResultsGenerator\ConfigProperty.cs" />
+    <Compile Include="Processors\Structs\DirTransfer.cs" />
+    <Compile Include="Processors\Structs\ExtJsPackages.cs" />
+    <Compile Include="Processors\Structs\JsDocsPropTypes.cs" />
+    <Compile Include="Processors\Structs\JsDocsSection.cs" />
+    <Compile Include="Processors\Enums\JsDocsSectionType.cs" />
+    <Compile Include="Processors\Reader\CfgOrProp.cs" />
+    <Compile Include="Processors\Reader\Helpers.cs" />
+    <Compile Include="Processors\Reader\InvalidJsDocsFormatException.cs" />
+    <Compile Include="Processors\Reader\JsDocs.cs" />
+    <Compile Include="Processors\Reader\MethodOrEvent.cs" />
+    <Compile Include="Processors\Reader\ParamConfigObject.cs" />
+    <Compile Include="Processors\ResultsGenerator\Interface.cs" />
+    <Compile Include="Processors\ResultsGenerator\Heading.cs" />
+    <Compile Include="Processors\ResultsGenerator\Method.cs" />
+    <Compile Include="Processors\ResultsGenerator\Property.cs" />
+    <Compile Include="Processors\ResultsGenerator\Members.cs" />
+    <Compile Include="Processors\ResultsGenerator\Namespace.cs" />
+    <Compile Include="Processors\ResultsGenerator\Class.cs" />
+    <Compile Include="Processors\ResultsGenerator\Writing.cs" />
+    <Compile Include="Processors\Structs\PackageSource.cs" />
+    <Compile Include="Processors\Structs\PromptInfo.cs" />
+    <Compile Include="Processors\Structs\ProcessingInfo.cs" />
+    <Compile Include="Processor.cs" />
+    <Compile Include="Processors\Enums\ExtJsPackage.cs" />
+    <Compile Include="Processors\Enums\ExtJsToolkit.cs" />
+    <Compile Include="Processors\InheritanceResolver.cs" />
+    <Compile Include="Processors\Structs\PkgCfg.cs" />
+    <Compile Include="Processors\VersionSpecsAndFixes.cs" />
+    <Compile Include="Processors\ResultsGenerator.cs" />
+    <Compile Include="Processors\SpecialsGenerator.cs" />
+    <Compile Include="Processors\TypeDefinitionsParser.cs" />
+    <Compile Include="Processors\InheritanceResolver\Types.cs" />
+    <Compile Include="Processors\TypesChecker.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\Aliases.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\Autodetect.cs" />
+    <Compile Include="SourceJsonTypes\ExtObject.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\File.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\ExtObjectMember.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\ExtObjectMembers\Deprecated.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\ExtObjectMembers\InheritDoc.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\ExtObjectMembers\Override.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\ExtObjectMembers\MemberParam.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\ExtObjectMembers\MemberParams\MemberParamProperty.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\ExtObjectMembers\Return.cs" />
+    <Compile Include="SourceJsonTypes\ExtObjects\ExtObjectMembers\Returns\Property.cs" />
+    <Compile Include="Processors\Reader.cs" />
+    <Compile Include="Processors\Store.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Desharp.config.example" />
+    <None Include="packages.config" />
+    <None Include="Tom Flidr - .NET.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="jsduck-6.0.0-beta.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
