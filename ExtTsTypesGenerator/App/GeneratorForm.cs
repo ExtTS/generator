@@ -271,7 +271,9 @@ namespace Generator {
 			this.setControlsEnabled(false);
 			// Run:
 			Thread processingThread = new Thread(new ThreadStart(delegate {
-				this.processor.Process(this.processedHandler);
+				this.processor.Process(
+					this.processedHandler
+				);
 			}));
 			processingThread.Priority = ThreadPriority.AboveNormal;
 			processingThread.IsBackground = true;
@@ -361,10 +363,10 @@ namespace Generator {
 				this.progressTotal.Value = (int)totalPercentage;
 			});
 		}
-		protected void processedHandler (bool success) {
+		protected void processedHandler (bool success, ProcessingInfo processingInfo) {
 			List<Exception> errors = this.processor.GetExceptions();
 			StringBuilder textContentSb = new StringBuilder();
-			string title = success
+			string title = (success || processingInfo.StageIndex == processingInfo.StagesCount)
 				? (errors.Count == 0
 					? "Processing successfully finished."
 					: "Processing finished with following errors:")
