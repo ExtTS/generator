@@ -20,8 +20,10 @@ namespace ExtTs.Processors {
 			this.preparerProgressHandler = preparerProgressHandler;
 			bool extrackToolkitDirs = this.processor.Version.Major >= 6;
 			this.dirTransfers = new List<DirTransfer>();
+			List<string> packagesClone = new List<string>(this.processor.Packages);
 			for (int i = 0; i < this.processor.Packages.Count; i++) 
-				this.completePackageTransferDirs(this.processor.Packages[i], extrackToolkitDirs);
+				this.completePackageTransferDirs(ref packagesClone, this.processor.Packages[i], extrackToolkitDirs);
+			this.processor.Packages = packagesClone;
 			this.processedPackageIndex = 0;
 			DirTransfer dirTransfer;
 			for (int j = 0; j < this.dirTransfers.Count; j++) {
@@ -44,7 +46,7 @@ namespace ExtTs.Processors {
 				this.processor.Store.PackagesData[k] = packageSource;
 			}
 		}
-		internal void completePackageTransferDirs (string packageName, bool extrackToolkitDirs) {
+		internal void completePackageTransferDirs (ref List<string> packagesClone, string packageName, bool extrackToolkitDirs) {
 			if (!this.processor.Store.SourcesPaths.ContainsKey(packageName))
 				throw new Exception($"Package name `{packageName}` is not configured.");
 			PkgCfg pkgCfg = this.processor.Store.SourcesPaths[packageName];
@@ -57,7 +59,7 @@ namespace ExtTs.Processors {
 			string packageBaseSourceDir = this.processor.Store.SourceFullPath + "/" + pkgCfg.Source;
 			if (!Directory.Exists(packageBaseSourceDir)) {
 				if (pkgCfg.Optional) {
-					this.processor.Packages.Remove(packageName); // not in this version
+					packagesClone.Remove(packageName); // not in this version
 					return;
 				}
 				throw new Exception(

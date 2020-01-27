@@ -71,6 +71,9 @@ namespace ExtTs.Processors {
 			string compatibleClassFullName;
 			ExtClass compatibleClass;
 			Dictionary<string, Member> compatibleProps;
+			bool methodParamTypeArr;
+			int methodParamTypeEnd;
+			ExtClass methodParamCallbackType;
 			foreach (var item in prop.Types) {
 				if (item.Value.Type == ExistenceReasonType.COMPATIBLE_TYPES) { // it could be only "any":
 					compatibleClassFullName = item.Value.CompatibilityReasonClassFullName;
@@ -86,7 +89,18 @@ namespace ExtTs.Processors {
 						);
 					}
 				} else {
-					typeCollections.Current.Add(item.Key);
+					methodParamTypeArr = item.Key.EndsWith("[]");
+					methodParamTypeEnd = item.Key.IndexOf("[]");
+					methodParamCallbackType = methodParamTypeArr
+						? this.processor.Store.GetPossibleCallbackType(
+							item.Key.Substring(0, methodParamTypeEnd)
+						  )
+						: this.processor.Store.GetPossibleCallbackType(item.Key);
+					if (methodParamCallbackType == null) {
+						typeCollections.Current.Add(item.Key);
+					} else {
+						// TODO: render func doc comments later!
+					}
 				}
 			}
 			// If there are any parent class types (because of compatibility),

@@ -200,14 +200,18 @@ namespace ExtTs.Processors {
 			}
 			// Sometimes there are direct string values as type definitions - normalize double quotes to single quotes:
 			rawTypesStr = rawTypesStr.Replace('"', '\'');
-			// Sometimes there are really `|` separators in Ext js docs, so be carefull:
-			return rawTypesStr.Replace('|', '/');
+			// Sometimes there are really `,` and `|` separators in Ext js docs, so be carefull:
+			rawTypesStr = rawTypesStr.Replace('|', '/');
+			if (rawTypesStr.StartsWith("'") && rawTypesStr.EndsWith("'")) 
+				rawTypesStr = rawTypesStr.Replace(',', '/');
+			return rawTypesStr;
 		}
 		/**
 		 * Explode raw types definition by slash `/`. Slas is specific separator for JS Docs type definitions in Ext.JS framework.
 		 */
 		protected List<string> explodeRawTypes (string rawTypesStr) {
 			List<string> rawResult = new List<string>();
+			List<string> result = new List<string>();
 			if (rawTypesStr.IndexOf("/") > -1) {
 				//String/String[] or String[]/Object
 				rawResult = rawTypesStr.Split(
@@ -217,7 +221,25 @@ namespace ExtTs.Processors {
 			} else {
 				rawResult.Add(rawTypesStr);
 			}
-			return rawResult;
+			// Be carefull for type definitions like: `Ext.dataview.component.(Simple)ListItem`, 
+			// fix them into: Ext.dataview.component.ListItem | Ext.dataview.component.SimpleListItem
+			int openBracketPos;
+			int closeBracketPos;
+			foreach (string rawItem in rawResult) {
+				openBracketPos = rawItem.IndexOf("(");
+				closeBracketPos = rawItem.LastIndexOf(")");
+				if (rawItem.Contains(".") && openBracketPos != -1 && closeBracketPos != -1) {
+					result.Add(
+						rawItem.Replace("(", "").Replace(")", "")
+					);
+					result.Add(
+						rawItem.Substring(0, openBracketPos) + rawItem.Substring(closeBracketPos + 1)
+					);
+				} else {
+					result.Add(rawItem);
+				}
+			}
+			return result;
 		}
 		/**
 		 * There are sometimes errors in JS Docs comments in function params spread syntax definitions written by Sencha developers.

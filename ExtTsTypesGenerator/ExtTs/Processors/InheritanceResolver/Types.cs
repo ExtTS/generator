@@ -246,6 +246,11 @@ namespace ExtTs.Processors.InheritanceResolvers {
 			 */
 			{ "google.maps.LatLng"			, new List<string> { "object","any" }},
 		};
+		internal protected static List<string> NonBrowserTypes = new List<string>() {
+			"google.maps.Map",
+			"google.maps.LatLng",
+			"FileError"
+		};
 		protected static Dictionary<string, Types> cache = new Dictionary<string, Types>();
 		protected string typeFullName;
 		protected List<string> inheritedFromTypes;
@@ -349,7 +354,10 @@ namespace ExtTs.Processors.InheritanceResolvers {
 			return instance.inheritedFromTypes.Contains(parentTypeFullName);
 		}
 		public static bool IsBrowserInternalType (string rawJsType) {
-			return Types.JsInheritance.ContainsKey(rawJsType);
+			return (
+				Types.JsInheritance.ContainsKey(rawJsType) &&
+				(!Types.NonBrowserTypes.Contains(rawJsType))
+			);
 		}
 		public static bool IsTypeInheratedFrom (string checkTypeFullName, string parentTypeFullName) {
 			if (

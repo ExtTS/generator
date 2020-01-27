@@ -15,6 +15,10 @@ namespace ExtTs.Processors {
 			List<string> returnTypes = new List<string>();
 			// `pseudoCallbackName = 'Ext.Array.staticMethodsParams.each.Fn';`
 			ParsedTypes paramTypes;
+			// Fixing for params duplication in 6.0.1 modern in Ext.form.Panel.methodParams.load.Options.success 
+			// callback, param data is there 2x
+			List<string> callbackParamsNames = new List<string>();
+			string callbackParamName;
 			foreach (MemberParamProperty funcParamCallbackProp in funcParamCallbackProps) {
 				if (funcParamCallbackProp.Name == "return") {
 					returnDocs = this.readJsDocs(
@@ -34,6 +38,9 @@ namespace ExtTs.Processors {
 						funcParamCallbackProp.Type
 					).MethodOrEventReturn;
 				} else {
+					callbackParamName = this.sanitizeName(funcParamCallbackProp.Name);
+					if (callbackParamsNames.Contains(callbackParamName))
+						continue;
 					docs = this.readJsDocs(
 						funcParamCallbackProp.Doc, 
 						(eventCompleting
@@ -57,8 +64,9 @@ namespace ExtTs.Processors {
 							this.processor.Exceptions.Add(ex);
 						}
 					}
+					callbackParamsNames.Add(callbackParamName);
 					funcParams.Add(new Param(
-						this.sanitizeName(funcParamCallbackProp.Name),
+						callbackParamName,
 						docs,
 						paramTypes.MethodOrEventParam,
 						true,

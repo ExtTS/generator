@@ -69,6 +69,8 @@ namespace ExtTs.Processors {
 			string extParamsPseudoClassName;
 			string funcParamConfObjectPropType;
 			string funcParamPropName = this.sanitizeName(funcParamConfObjectProp.Name);
+			//if (funcParamPropName == "success")
+			//	Debugger.Break();
 			List<string> types = this.typesParser.Parse(
 				eventCompleting
 					? TypeDefinitionPlace.EVENT_PARAM_CFGOBJ_PROP

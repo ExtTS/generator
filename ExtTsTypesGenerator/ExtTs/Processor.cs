@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ExtTs {
 	public delegate void ProcessingInfoHandler(ProcessingInfo processingInfo);
 	public delegate string UserPromptHandler(PromptInfo promptInfo);
-	public delegate void FinishedHandler(bool success);
+	public delegate void FinishedHandler(bool success, ProcessingInfo processingInfo);
 	public delegate void ReadFinishedHandler(bool success);
 	public delegate void JsDuckFinishedHandler(bool success);
 	public class Processor {
@@ -193,11 +193,11 @@ namespace ExtTs {
 			//
 			this.ProcessingInfoHandler.Invoke(this.ProcessingInfo);
 			if (!this.setUpCheckInputs()) {
-				this.finishedHandler.Invoke(false);
+				this.finishedHandler.Invoke(false, this.ProcessingInfo);
 				return false;
 			}
 			if (!this.setUpVersionSpecifics()) {
-				this.finishedHandler.Invoke(false);
+				this.finishedHandler.Invoke(false, this.ProcessingInfo);
 				return false;
 			}
 			return true;
@@ -209,7 +209,7 @@ namespace ExtTs {
 				this.processCompleteSourceFiles();
 			} catch (Exception ex) {
 				this.Exceptions.Add(ex);
-				this.finishedHandler.Invoke(false);
+				this.finishedHandler.Invoke(false, this.ProcessingInfo);
 				result = false;
 			}
 			return result;
@@ -217,7 +217,7 @@ namespace ExtTs {
 		protected void processReadJsDuckData () {
 			this.processReadFiles(delegate (bool readSuccess) {
 				if (!readSuccess) {
-					this.finishedHandler.Invoke(false);
+					this.finishedHandler.Invoke(false, this.ProcessingInfo);
 					return;
 				}
 				this.processTypeScriptResults();
@@ -239,7 +239,10 @@ namespace ExtTs {
 			} catch (Exception ex) {
 				this.Exceptions.Add(ex);
 			}
-			this.finishedHandler.Invoke(this.Exceptions.Count == 0);
+			this.finishedHandler.Invoke(
+				this.Exceptions.Count == 0,
+				this.ProcessingInfo
+			);
 		}
 
 		protected internal bool setUpCheckInputs () {
@@ -497,7 +500,7 @@ namespace ExtTs {
 		
 		// for debuging purposes to skip first 3 steps with filled tmp dir:
 		protected void processInitParsedDebugTmpData () {
-			string tmpPath = this.Store.TmpFullPath + "/";
+			string tmpPath = this.Store.TmpFullPath;
 			string jsSrcFullPath;
 			string jsonFullPath;
 			int jsSourcesCount;

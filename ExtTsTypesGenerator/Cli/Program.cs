@@ -15,7 +15,7 @@ namespace Cli {
 			Processor proc = Processor.CreateNewInstance()
 				//.SetDebuggingTmpDirDataUse(true) // to skip first 3 slowest steps and use TMP dir data
 				.SetVersion("6.0.1")
-				.SetToolkit(ExtJsToolkit.CLASSIC)
+				.SetToolkit(ExtJsToolkit.MODERN)
 				.SetPackages(
 					//ExtJsPackage.CORE
 					//ExtJsPackage.CORE | ExtJsPackage.UX
@@ -24,14 +24,14 @@ namespace Cli {
 					ExtJsPackage.CORE|ExtJsPackage.AMF|ExtJsPackage.CHARTS|ExtJsPackage.GOOGLE|ExtJsPackage.LEGACY|ExtJsPackage.SOAP|ExtJsPackage.UX
 				)
 				.SetGenerateJsDocs(true)
-				.SetGenerateSingleFile(false)
-				.SetSourcePackageFullPath(@"W:/home/extjs/download/Ext.JS GPL ZIP Packages/ext-6.0.1-gpl.zip")
-				.SetResultsDirFullPath(@"C:/Users/Administrator/Desktop/definitions/6.0.1-classic-all-packages/", true)
+				.SetGenerateSingleFile(true)
+				.SetSourcePackageFullPath(@"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-6.0.1-gpl.zip")
+				.SetResultsDirFullPath(@"c:/Users/Administrator/Desktop/Ext.TS/example-project-601-classic/js/types/", true)
 				.SetUserPromptHandler(Program.userPrompt)
 				.SetProcessingInfoHandler(Program.displayProgress);
-			proc.Process(delegate (bool success) {
+			proc.Process(delegate (bool success, ProcessingInfo processingInfo) {
 				List<Exception> errors = proc.GetExceptions();
-				string title = success
+				string title = (success || processingInfo.StageIndex == processingInfo.StagesCount)
 					? (errors.Count == 0
 						? "Processing finished."
 						: "Processing finished with following errors:")

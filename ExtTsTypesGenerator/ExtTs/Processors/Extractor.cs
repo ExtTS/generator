@@ -46,9 +46,9 @@ namespace ExtTs.Processors {
 				DirectoryInfo dInfo = new DirectoryInfo(this.processor.Store.TmpFullPath);
 				foreach (FileInfo file in dInfo.GetFiles()) 
 					file.Delete(); 
-				foreach (DirectoryInfo dir in dInfo.GetDirectories())
+				foreach (DirectoryInfo dir in dInfo.GetDirectories()) 
 					dir.Delete(true);
-			} catch (ArgumentException ex) {
+			} catch (Exception ex) {
 				this.processor.Exceptions.Add(ex);
 				this.addExceptionAndReturnFalse(String.Format(
 					"Temporary directory is not possible to clear before processing: `{0}`.", this.processor.Store.TmpFullPath

@@ -187,7 +187,7 @@ namespace ExtTs.Processors {
 			foreach (var methodMemberItem in extBaseClass.Members.Methods) {
 				firstMethodVariant = methodMemberItem.Value.FirstOrDefault<Member>() as Method;
 				if (
-					firstMethodVariant.AccessModJs == ExtTypes.Enums.AccessModifier.PRIVATE ||
+					firstMethodVariant.AccessModJs == AccessModifier.PRIVATE ||
 					firstMethodVariant.IsConstructor
 				)
 					continue;
@@ -227,7 +227,7 @@ namespace ExtTs.Processors {
 			ExtClass eventClass;
 			List<Member> eventMemberVariants;
 			foreach (ExtClass standardClass in this.processor.Store.ExtStandardClasses) {
-				if (standardClass.Members.Events.Count > 0 && !standardClass.Private) {
+				if (standardClass.Members.Events.Count > 0/* && !standardClass.Private*/) {
 					eventClass = new ExtClass(
 						standardClass.Name.FullName + SpecialsGenerator.EVENTS_NAME_ADDITION,
 						SpecialsGenerator.BASE_EVENTS_INTERFACE_NAME,
@@ -373,10 +373,10 @@ namespace ExtTs.Processors {
 			Property prop;
 			Method methodVariant;
 			foreach (ExtClass standardClass in this.processor.Store.ExtStandardClasses) {
-				if (
+				/*if (
 					standardClass.Members.MethodsStatic.Count > 0 || 
 					standardClass.Members.PropertiesStatic.Count > 0
-				) {
+				) {*/
 					staticsClass = new ExtClass(
 						standardClass.Name.FullName + SpecialsGenerator.STATICS_NAME_ADDITION,
 						SpecialsGenerator.BASE_STATICS_INTERFACE_NAME,
@@ -412,14 +412,14 @@ namespace ExtTs.Processors {
 								methodMemberVariants
 							);
 					}
-					if (
+					/*if (
 						staticsClass.Members.PropertiesStatic.Count > 0 ||
 						staticsClass.Members.MethodsStatic.Count > 0
-					) { 
+					) { */
 						staticsClass.HasMembers = true;
 						this.processor.Store.AddExtClass(staticsClass);
-					}
-				}
+					//}
+				//}
 				processedClassesCount += 1;
 				progressHandler.Invoke(processedClassesCount, standardClass.Name.FullName);
 			}
@@ -437,7 +437,7 @@ namespace ExtTs.Processors {
 				select item.Value as Configuration
 			).ToList<Configuration>();
 			foreach (ExtClass standardClass in this.processor.Store.ExtStandardClasses) {
-				if (!standardClass.Singleton && !standardClass.Private) {
+				if (!standardClass.Singleton/* && !standardClass.Private*/) {
 					definitionsClass = new ExtClass(
 						standardClass.Name.FullName + SpecialsGenerator.DEFINITIONS_NAME_ADDITION,
 						standardClass.Name.FullName,
