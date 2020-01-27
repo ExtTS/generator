@@ -68,5 +68,9 @@
   - Generates a few unknown empty classes definitions in separate file named `ext-X.X.X-classic-unknown.d.ts`.
 
 ## Tetsted Ext.JS Versions And Toolkits
-- v6.0.1 classic
-- v6.0.1 modern
+- v6.0.1 classic - TESTED, working OK
+- v6.0.1 modern - TESTED, working OK
+- v6.2.0 classic - NOT TESTED, probably working
+- v6.2.0 modern - NOT TESTED, probably working
+- v7.0.0 classic - NOT TESTED, there might be some problems
+- v7.0.0 modern - NOT TESTED, there might be some problems
