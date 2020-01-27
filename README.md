@@ -19,7 +19,11 @@
 - Generates definitions for:
   - All Ext.JS framework classes as it is (including singletons as it is) like:
     - `Ext`, `Ext.Array`, `Ext.panel.Panel` etc...
-  - Interfaces for configuration objects (to create classes by `Ext.create()`)
+  - Interfaces for configuration objects (to create classes by `Ext.create()`) like:
+    - `Ext.create('Ext.panel.Panel', <Ext.panel.Panel.Cfg>{
+        title: `My Panel Title`,
+        closable: true
+      }`
   - Interfaces to define extended classes
   - Interfaces for events objects (to define `listeners` property)
   - Interfaces for all structured method params
