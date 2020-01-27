@@ -78,7 +78,7 @@ Best way to understand how to use the definitions are examples here:
 - v5.x.x and lower - NOT TESTED, there might be some problems
 - **v6.0.1 classic - TESTED, working OK**
 - **v6.0.1 modern - TESTED, working OK**
-- v6.2.0 classic - NOT TESTED, probably working
+- **v6.2.0 classic - TESTED, working OK**
 - v6.2.0 modern - NOT TESTED, probably working
 - v7.0.0 classic - NOT TESTED, there might be some problems
 - v7.0.0 modern - NOT TESTED, there might be some problems
