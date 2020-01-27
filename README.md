@@ -1,5 +1,5 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript->=3.7-brightgreen.svg?style=plastic)
-[![License](https://img.shields.io/badge/Licence-BSD-3-brightgreen.svg?style=plastic)](https://raw.githubusercontent.com/ExtTS/generator/master/LICENSE)
+[![License](https://img.shields.io/badge/Licence-BSD3-brightgreen.svg?style=plastic)](https://raw.githubusercontent.com/ExtTS/generator/master/LICENSE)
 
 # Ext.JS Framework TypeScript Type Definitions Generator
 
