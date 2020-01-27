@@ -44,13 +44,21 @@
          extend: 'Ext.panel.Panel',
          opened: true,
          listeners: <Ext.panel.Panel.Events>{
-            close: (panel: Ext.panel.Panel, eOpts: object) => {
+            close: function (panel: Ext.panel.Panel, eOpts: object) {
                this.opened = false;
             }
          }
       });
       ```
   - Interfaces for all structured method params
+    - ```
+      Ext.Ajax.request(<Ext.data.Connection.methodParams.request.Options>{
+         url: "?submit",
+         success: function (response?: object, options?: object) {
+             console.log(response);
+         }
+      });
+      ```
   - Callbacks, mixed things etc...
 - Generates definitions with no access modifiers like `private`, `protected` or `public`,
   because then there is not possible to extend classes like that into interfaces to declare
