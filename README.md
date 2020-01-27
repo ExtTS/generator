@@ -27,7 +27,29 @@
       });
       ```
   - Interfaces to define extended classes like this:
+    - ```
+      Ext.define('App.controller.Main', <Ext.app.Controller.Def>{
+         extend: 'Ext.app.Controller',
+         config: <Ext.app.Controller.Cfg>{
+            refs[{
+               ref: 'mainTabs'
+               selector: 'tabpanel[cls=main-tabs]'
+            }]
+         }
+      });
+      ```
   - Interfaces for events objects (to define `listeners` property)
+    - ```
+      Ext.define('App.view.MainTab', <Ext.panel.Panel.Def & Ext.panel.Panel.Cfg>{
+         extend: 'Ext.panel.Panel',
+         opened: true,
+         listeners: <Ext.panel.Panel.Events>{
+            close: (panel: Ext.panel.Panel, eOpts: object) => {
+               this.opened = false;
+            }
+         }
+      });
+      ```
   - Interfaces for all structured method params
   - Callbacks, mixed things etc...
 - Generates definitions with no access modifiers like `private`, `protected` or `public`,
