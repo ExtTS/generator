@@ -202,7 +202,7 @@ namespace ExtTs.Processors {
 			rawTypesStr = rawTypesStr.Replace('"', '\'');
 			// Sometimes there are really `,` and `|` separators in Ext js docs, so be carefull:
 			rawTypesStr = rawTypesStr.Replace('|', '/');
-			if (rawTypesStr.StartsWith("'") && rawTypesStr.EndsWith("'")) 
+			if (rawTypesStr.StartsWith("'") || rawTypesStr.EndsWith("'")) 
 				rawTypesStr = rawTypesStr.Replace(',', '/');
 			return rawTypesStr;
 		}

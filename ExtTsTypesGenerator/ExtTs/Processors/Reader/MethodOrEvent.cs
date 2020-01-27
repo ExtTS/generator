@@ -493,8 +493,8 @@ namespace ExtTs.Processors {
 		}
 		protected void readFunctionParamAddToParamsList (MemberParam extObjectMemberParam, ref FuncParamsSyntaxCollections functionParamsSyntaxCollections, ref ParsedTypes paramTypes, string currentClassName, bool eventCompleting, bool lastParamDefinition) {
 			bool optional = (
-				extObjectMemberParam.Optional.HasValue && 
-				extObjectMemberParam.Optional.Value == true
+				(extObjectMemberParam.Optional.HasValue && extObjectMemberParam.Optional.Value == true) ||
+				(extObjectMemberParam.Doc != null && extObjectMemberParam.Doc.Contains("(optional)"))
 			);
 			string[] docs = this.readJsDocs(
 				extObjectMemberParam.Doc, 
