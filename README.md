@@ -9,6 +9,13 @@
 
 </div>
 
+## Examples How To Use Ext.JS TypeScript Definitions
+Best way to understand how to use the definitions are examples here:  
+- [Example in Ext.JS 6.0.1 classic](https://github.com/ExtTS/example-project-601-classic)  
+- [Example in Ext.JS 6.0.1 modern](https://github.com/ExtTS/example-project-601-modern)  
+- [Example in Ext.JS 6.2.0 classic](https://github.com/ExtTS/example-project-620-classic)  
+- [Example in Ext.JS 6.2.0 modern](https://github.com/ExtTS/example-project-620-modern)  
+
 ## Features
 - Unzips necessary source files, parse (by JS Duck) and generates TypeScript definition files.
 - Generates definitions as single file or in multiple files (not to work with one very large file).
