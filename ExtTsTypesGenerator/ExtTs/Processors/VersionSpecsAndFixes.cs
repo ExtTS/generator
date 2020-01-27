@@ -106,7 +106,9 @@ namespace ExtTs.Processors {
 					Source				= "packages/core/src/",
 					SourceOverrides		= "packages/core/overrides/",
 					Classic				= "classic/classic/src/",
+					ClassicOverrides	= "classic/classic/overrides/",
 					Modern				= "modern/modern/src/",
+					ModernOverrides		= "modern/modern/overrides/"
 				} },
 				{ "google",             new PkgCfg {
 					Optional			= true,	// is presented only in higher six version
@@ -151,7 +153,9 @@ namespace ExtTs.Processors {
 					Source				= "packages/core/src/",
 					SourceOverrides		= "packages/core/overrides/",
 					Classic				= "classic/classic/src/",
+					ClassicOverrides	= "classic/classic/overrides/",
 					Modern				= "modern/modern/src/",
+					ModernOverrides		= "modern/modern/overrides/",
 				} },
 				{ "frola-editor",       new PkgCfg {
 					Source				= "packages/froala-editor/src/",
@@ -162,7 +166,7 @@ namespace ExtTs.Processors {
 				{ "google",             new PkgCfg {
 					Source				= "packages/google/src/",
 					SourceOverrides		= "",
-					Classic				= "packages/google/classic/src/",
+					Classic				= "",
 					Modern				= "packages/google/modern/src/",
 				} },
 				{ "charts",             new PkgCfg {
@@ -187,9 +191,9 @@ namespace ExtTs.Processors {
 					Source				= "packages/ux/src/",
 					SourceOverrides		= "packages/ux/overrides/",
 					Classic				= "packages/ux/classic/src/",
-					ClassicOverrides	= "packages/ux/classic/src/overrides/",
+					ClassicOverrides	= "",
 					Modern				= "packages/ux/modern/src/",
-					ModernOverrides		= "packages/ux/modern/src/overrides/",
+					ModernOverrides		= "",
 				} }
 			} },
 		};
@@ -227,15 +231,51 @@ namespace ExtTs.Processors {
 		 // extNumericMajorVersion => "[place]Namespace.full.path.ClassName.methodName:paramName" => "raw correct param type definition"
 		public static Dictionary<int, Dictionary<string, string>> TypesFixes = new Dictionary<int, Dictionary<string, string>>() {
 			{ 6, new Dictionary<string, string>() {
-				// 6.2.0 classic:
+				// 6.2.0 classic+modern:
 				{ "[methodParam]Ext.grid.plugin.RowWidget.getWidget.view"           , "any" },
 				{ "[methodParam]Ext.grid.plugin.RowWidget.getWidget.record"			, "any" },
 				{ "[methodReturn]Ext.grid.plugin.RowWidget.getWidget"				, "any" },
+
 				{ "[methodParam]Ext.view.AbstractView.setItemsDraggable.draggable"	, "any" },
+
 				{ "[methodParam]Ext.util.Region.setPosition.x"						, "number" },
 				{ "[methodParam]Ext.util.Region.setPosition.y"						, "number" },
+
 				{ "[methodParam]Ext.util.Region.exclude.other"						, "Ext.util.Region" },
 				{ "[methodParam]Ext.util.Region.exclude.inside"						, "Ext.util.Region" },
+
+				{ "[methodParam]Ext.util.Point.exclude.other"						, "Ext.util.Region" },
+				{ "[methodParam]Ext.util.Point.exclude.inside"						, "Ext.util.Region" },
+				
+				{ "[methodParam]Ext.drag.Source.beforeDragStart.The"				, "Ext.drag.Info" },
+
+				{ "[methodParam]Ext.data.NodeInterface.copy.session"				, "Ext.data.Session" },
+			} },
+			{ 7, new Dictionary<string, string>() {
+				// 7.0.0 classic:
+				{ "[property]Ext.grid.feature.Feature.Element"          									, "Ext.dom.Element" },
+
+				{ "[methodParam]Ext.ComponentManager.doHandleDocumentMouseDown.e"							, "any" },
+
+				{ "[methodParam]Ext.grid.plugin.RowWidget.getWidget.view"									, "any" },
+				{ "[methodParam]Ext.grid.plugin.RowWidget.getWidget.record"									, "any" },
+				{ "[methodReturn]Ext.grid.plugin.RowWidget.getWidget"										, "any" },
+
+				{ "[methodParam]Ext.util.Region.exclude.other"												, "Ext.util.Region" },
+				{ "[methodParamConfigObjectProperty]Ext.util.Region.methodParams.exclude.Options.inside"	, "Ext.util.Region" },
+
+				{ "[methodParam]Ext.util.Point.exclude.other"												, "Ext.util.Region" },
+				{ "[methodParamConfigObjectProperty]Ext.util.Point.methodParams.exclude.Options.inside"		, "Ext.util.Region" },
+				
+				{ "[methodParam]Ext.view.AbstractView.setItemsDraggable.draggable"							, "any" },
+				
+				{ "[methodParam]Ext.data.NodeInterface.copy.session"										, "Ext.data.Session" },
+
+				{ "[config]Ext.drag.Source.proxy"															, "Ext.drag.proxy.None" },
+				{ "[methodParam]Ext.drag.Source.getProxy.proxy"												, "Ext.drag.proxy.None" },
+				{ "[methodParam]Ext.drag.Source.setProxy.proxy"												, "Ext.drag.proxy.None" },
+
+				{ "[methodParam]Ext.grid.Location.getUpdatedLocation.targetRowIndex"						, "number" },
 			} },
 		};
 	}

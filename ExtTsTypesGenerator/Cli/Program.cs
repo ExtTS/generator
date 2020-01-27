@@ -14,7 +14,7 @@ namespace Cli {
 			// THIS CLI APP IS FOR DEVELOPMENT PURPOSES ONLY:
 			Processor proc = Processor.CreateNewInstance()
 				//.SetDebuggingTmpDirDataUse(true) // to skip first 3 slowest steps and use TMP dir data
-				.SetVersion("6.0.1")
+				.SetVersion("7.0.0")
 				.SetToolkit(ExtJsToolkit.MODERN)
 				.SetPackages(
 					//ExtJsPackage.CORE
@@ -25,8 +25,8 @@ namespace Cli {
 				)
 				.SetGenerateJsDocs(true)
 				.SetGenerateSingleFile(true)
-				.SetSourcePackageFullPath(@"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-6.0.1-gpl.zip")
-				.SetResultsDirFullPath(@"c:/Users/Administrator/Desktop/Ext.TS/example-project-601-classic/js/types/", true)
+				.SetSourcePackageFullPath(@"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-7.0.0-trial.zip")
+				.SetResultsDirFullPath(@"c:/Users/Administrator/Desktop/Ext.TS/example-project-700-modern/js/types/", true)
 				.SetUserPromptHandler(Program.userPrompt)
 				.SetProcessingInfoHandler(Program.displayProgress);
 			proc.Process(delegate (bool success, ProcessingInfo processingInfo) {

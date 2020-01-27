@@ -21,6 +21,7 @@ namespace ExtTs.ExtTypes {
 		public bool HasMembers;
 		public ExtJsPackage Package;
 		public string[] Link; // used only for class types: ClassType.CLASS_METHOD_PARAM_CONF_OBJ;
+		//public string SrcJson; // debugging purposes only
 		public ExtClass (string fullName = "", string extendsFullName = "", string[] docs = null) {
 			this.Name = new NameInfo(fullName);
 			if (extendsFullName.Length > 0) { 
@@ -47,6 +48,7 @@ namespace ExtTs.ExtTypes {
 			this.Parents = new List<ExtClass>();
 			this.HasMembers = false;
 			this.Link = null;
+			//this.SrcJson = null;
 		}
 		public ExtClass (NameInfo nameInfo, NameInfo extendsNameInfo) {
 			this.Name = nameInfo;
@@ -70,6 +72,7 @@ namespace ExtTs.ExtTypes {
 			this.Parents = new List<ExtClass>();
 			this.HasMembers = false;
 			this.Link = null;
+			//this.SrcJson = null;
 		}
 		public void AddMemberIndexer (Indexer member) {
 			this.Members.Indexers.Add(member.Name, member);
@@ -108,6 +111,99 @@ namespace ExtTs.ExtTypes {
 				});
 			}
 			this.HasMembers = true;
+		}
+		public void MergeWithMembers(ExtClass otherExtClass) {
+			Configuration currentCfg;
+			Configuration otherCfg;
+			Property currentProp;
+			Property otherProp;
+			// Cfgs:
+			if (otherExtClass.Members.Configations.Count > 0) {
+				foreach (var cfgItem in otherExtClass.Members.Configations) {
+					if (!this.Members.Configations.ContainsKey(cfgItem.Key)) {
+						this.Members.Configations.Add(cfgItem.Key, cfgItem.Value);
+					} else {
+						currentCfg = this.Members.Configations[cfgItem.Key] as Configuration;
+						otherCfg = cfgItem.Value as Configuration;
+						foreach (string otherCfgType in otherCfg.Types) {
+							if (!currentCfg.Types.Contains(otherCfgType)) {
+								currentCfg.Types.Add(
+									otherCfgType
+								);
+							}
+						}
+					}
+				}
+			}
+			// Props:
+			if (otherExtClass.Members.PropertiesStatic.Count > 0) {
+				foreach (var propStaticItem in otherExtClass.Members.PropertiesStatic) {
+					if (!this.Members.PropertiesStatic.ContainsKey(propStaticItem.Key)) {
+						this.Members.PropertiesStatic.Add(propStaticItem.Key, propStaticItem.Value);
+					} else {
+						currentProp = this.Members.PropertiesStatic[propStaticItem.Key] as Property;
+						otherProp = propStaticItem.Value as Property;
+						foreach (var otherPropStaticTypeItem in otherProp.Types) {
+							if (!currentProp.Types.ContainsKey(otherPropStaticTypeItem.Key)) {
+								currentProp.Types.Add(
+									otherPropStaticTypeItem.Key,
+									otherPropStaticTypeItem.Value
+								);
+							}
+						}
+					}
+				}
+			}
+			if (otherExtClass.Members.Properties.Count > 0) {
+				foreach (var propItem in otherExtClass.Members.Properties) {
+					if (!this.Members.Properties.ContainsKey(propItem.Key)) {
+						this.Members.Properties.Add(propItem.Key, propItem.Value);
+					} else {
+						currentProp = this.Members.Properties[propItem.Key] as Property;
+						otherProp = propItem.Value as Property;
+						foreach (var otherPropTypeItem in otherProp.Types) {
+							if (!currentProp.Types.ContainsKey(otherPropTypeItem.Key)) {
+								currentProp.Types.Add(
+									otherPropTypeItem.Key,
+									otherPropTypeItem.Value
+								);
+							}
+						}
+					}
+				}
+			}
+			// Methods:
+			if (otherExtClass.Members.MethodsStatic.Count > 0) {
+				foreach (var methodStaticItem in otherExtClass.Members.MethodsStatic) {
+					if (!this.Members.MethodsStatic.ContainsKey(methodStaticItem.Key)) {
+						this.Members.MethodsStatic.Add(methodStaticItem.Key, methodStaticItem.Value);
+					} else {
+						foreach (Member otherMethodVariant in methodStaticItem.Value) 
+							this.Members.MethodsStatic[methodStaticItem.Key].Add(otherMethodVariant);
+					}
+				}
+			}
+			if (otherExtClass.Members.Methods.Count > 0) {
+				foreach (var methodItem in otherExtClass.Members.Methods) {
+					if (!this.Members.Methods.ContainsKey(methodItem.Key)) {
+						this.Members.Methods.Add(methodItem.Key, methodItem.Value);
+					} else {
+						foreach (Member otherMethodVariant in methodItem.Value) 
+							this.Members.Methods[methodItem.Key].Add(otherMethodVariant);
+					}
+				}
+			}
+			// Events:
+			if (otherExtClass.Members.Events.Count > 0) {
+				foreach (var methodItem in otherExtClass.Members.Events) {
+					if (!this.Members.Events.ContainsKey(methodItem.Key)) {
+						this.Members.Events.Add(methodItem.Key, methodItem.Value);
+					} else {
+						foreach (Member otherMethodVariant in methodItem.Value) 
+							this.Members.Events[methodItem.Key].Add(otherMethodVariant);
+					}
+				}
+			}
 		}
 	}
 }

@@ -88,6 +88,7 @@ namespace ExtTs.Processors {
 							altClassName, propTypeUc, new string[] { }
 						);
 						alternativeAliasClass.Package = extClass.Package;
+						//alternativeAliasClass.SrcJson = extClass.SrcJson;
 						alternativeAliasClass.Name.PackagedNamespace = this.processor.Reader.GetPackagedNamespaceFromFullClassName(
 							extClass.Name.FullName
 						);
@@ -171,6 +172,7 @@ namespace ExtTs.Processors {
 						extClass.Name.NamespaceName, "", null
 					);
 					namespaceAliasClass.Package = extClass.Package;
+					//namespaceAliasClass.SrcJson = extClass.SrcJson;
 					namespaceAliasClass.Name.PackagedNamespace = this.processor.Reader.GetPackagedNamespaceFromFullClassName(
 						extClass.Name.FullName
 					);

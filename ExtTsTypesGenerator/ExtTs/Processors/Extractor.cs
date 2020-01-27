@@ -43,11 +43,12 @@ namespace ExtTs.Processors {
 			}
 			// Empty whole tmp directory:
 			try {
+				this.removeDirRecursively(this.processor.Store.TmpFullPath);
 				DirectoryInfo dInfo = new DirectoryInfo(this.processor.Store.TmpFullPath);
-				foreach (FileInfo file in dInfo.GetFiles()) 
-					file.Delete(); 
 				foreach (DirectoryInfo dir in dInfo.GetDirectories()) 
 					dir.Delete(true);
+				foreach (FileInfo file in dInfo.GetFiles()) 
+					file.Delete();
 			} catch (Exception ex) {
 				this.processor.Exceptions.Add(ex);
 				this.addExceptionAndReturnFalse(String.Format(
@@ -55,6 +56,13 @@ namespace ExtTs.Processors {
 				));
 			}
 			return true;
+		}
+		protected void removeDirRecursively (string dirFullPath) {
+			DirectoryInfo dInfo = new DirectoryInfo(dirFullPath);
+			foreach (DirectoryInfo dir in dInfo.GetDirectories())
+				this.removeDirRecursively(dir.FullName);
+			foreach (FileInfo file in dInfo.GetFiles()) 
+				file.Delete();
 		}
 		protected bool addExceptionAndReturnFalse (string errorMsg) {
 			try {

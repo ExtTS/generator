@@ -48,9 +48,11 @@ namespace Generator {
 			this.initProcessorInstance();
 			this.initFormControlsValues();
 #if DEBUG
-			/*
-			this.versionSelect.Text = "6.0.1";
+/*
+			this.versionSelect.Text = "7.0.0";
 			this.toolkitSelect.Enabled = true;
+			this.toolkitSelect.Text = "Modern";
+			this.generateSingleFile.Checked = true;
 			this.packageAMF.Checked = true;
 			this.packageCharts.Checked = true;
 			this.packageCore.Checked = true;
@@ -58,11 +60,10 @@ namespace Generator {
 			this.packageLegacy.Checked = true;
 			this.packageSOAP.Checked = true;
 			this.packageUX.Checked = true;
-			this.toolkitSelect.Text = "Modern";
-			this.sourceZipFullPath.Text = @"W:/home/extjs/download/Ext.JS GPL ZIP Packages/ext-6.0.1-gpl.zip";
-			this.resultDirFullPath.Text = @"C:/Users/Administrator/Desktop/definitions/6.0.1-modern-all-packages/";
+			this.sourceZipFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-7.0.0-trial.zip";
+			this.resultDirFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/example-project-700-modern/js/types/";
 			this.checkInputs();
-			*/
+*/
 #endif
 		}
 		protected void initDocumentRoot() {

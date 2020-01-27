@@ -26,6 +26,7 @@ namespace ExtTs.Processors {
 				)
 			);
 			extParamConfObject.Package = this.currentPackage.Type;
+			//extParamConfObject.SrcJson = this.srcJson;
 			extParamConfObject.Name.PackagedNamespace = this.GetPackagedNamespaceFromFullClassName(
 				currentClassName
 			);

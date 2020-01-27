@@ -15,6 +15,7 @@ namespace ExtTs.Processors {
 			"XMLHttpRequest", 
 			"HTMLElement", 
 			"XMLElement", 
+			"Float32Array",
 			"Uint8Array", 
 			"TextNode", 
 			"Event", 
@@ -34,7 +35,7 @@ namespace ExtTs.Processors {
 		protected static List<string> NotUnknownTypes = new List<string>() {
 			"Boolean", "Boollean",
 			"String", "Object", "Array", "Number", "Function",
-			"HTMLElement", "HTMLELement"
+			"HTMLELement"
 		};
 		protected Processor processor;
 		protected progressHandlerExtractingJsDocs progressHandlerExtractingJsDocs;
@@ -195,6 +196,7 @@ namespace ExtTs.Processors {
 									.Replace("[", "")
 									.Replace("]", "");
 								if (
+									JsDuck.ExternalTypes.Contains(rawUnknownType) ||
 									JsDuck.NotUnknownTypes.Contains(rawUnknownType) || (
 										rawUnknownType.Length > 4 &&
 										rawUnknownType.Substring(0, 4) == "Ext."

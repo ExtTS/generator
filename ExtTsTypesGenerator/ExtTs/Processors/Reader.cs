@@ -40,6 +40,7 @@ namespace ExtTs.Processors {
 		private PackageSource currentPackage;
 		protected int allReadFilesCount;
 		protected int packageIndex;
+		//protected string srcJson;
 
 		protected internal Reader(Processor processor) {
 			this.processor = processor;
@@ -49,7 +50,7 @@ namespace ExtTs.Processors {
 			this.jsDocsUrlBase = "";
 			this.jsDocsLinksNewerFormat = false;
 			this.readingThreadsCount = Environment.ProcessorCount;
-			//this.readingThreadsCount = 1; // debuging
+			this.readingThreadsCount = 1; // debuging
 			this.readingThreads = new List<Thread>();
 			this.readingLock = new object { };
 			this.progressHandlingLock = new object { };
@@ -155,12 +156,16 @@ namespace ExtTs.Processors {
 			}
 		}
 		protected void readSourceTypeJsonFile (string extTypeJsonFullPath) {
+			string rawFileContent;
+			ExtObject extObject;
+			ExtClass extClass;
 			try {
-				string rawFileContent = System.IO.File.ReadAllText(extTypeJsonFullPath);
-				ExtObject extObject = this.parseDescriptingJsonTypesFile(rawFileContent);
+				rawFileContent = System.IO.File.ReadAllText(extTypeJsonFullPath);
+				extObject = this.parseDescriptingJsonTypesFile(rawFileContent);
 				if (InheritanceResolvers.Types.IsBrowserInternalType(extObject.Name)) return;
-				ExtClass extClass = this.readParsedJson(extObject);
-				this.processor.Store.AddExtClass(extClass);
+				//this.srcJson = extTypeJsonFullPath.Substring(this.processor.Store.TmpFullPath.Length);
+				extClass = this.readParsedJson(extObject);
+				this.processor.Store.AddExtClass(extClass, true);
 			} catch (Exception err) {
 				this.processor.Exceptions.Add(err);
 			}
@@ -189,6 +194,7 @@ namespace ExtTs.Processors {
 				)
 			);
 			result.Package = this.currentPackage.Type;
+			//result.SrcJson = this.srcJson;
 			result.Name.PackagedNamespace = this.GetPackagedNamespaceFromFullClassName(
 				result.Name.FullName
 			);

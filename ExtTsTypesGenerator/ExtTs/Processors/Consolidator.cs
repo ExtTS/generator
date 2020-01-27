@@ -434,9 +434,12 @@ namespace ExtTs.Processors {
 			// If there is no optimalized amespace for class, try 
 			// to remove tha last namespace part and try to find
 			// the "name.space.other" namespace for class:
-			return this.getNsLevelOtherNamespace(
+			string namespaceOther = this.getNsLevelOtherNamespace(
 				packagedNsExploded, packageOptimalizedNsInLevel, extClass.Name.FullName
 			);
+			if (packageOptimalizedNsInLevel.Contains(namespaceOther))
+				return namespaceOther;
+			return packageOptimalizedNsInLevel.LastOrDefault<string>();
 		}
 
 		protected internal bool OrderClassesInNsGroupsByModuleNames(orderProgressHandler orderProgressHandler) {
@@ -521,8 +524,8 @@ namespace ExtTs.Processors {
 				}
 				otherNamespaceNamesIndex += 1;
 			}
-			if (result.Length == 0)
-				throw new Exception($"There was not possible to find optimalized namespace name for class: `{fullClassName}`.");
+			//if (result.Length == 0)
+			//	throw new Exception($"There was not possible to find optimalized namespace name for class: `{fullClassName}`.");
 			return result;
 		}
 	}

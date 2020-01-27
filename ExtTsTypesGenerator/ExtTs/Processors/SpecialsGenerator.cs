@@ -43,6 +43,7 @@ namespace ExtTs.Processors {
 							altClassNameInfo, extClass.Name
 						);
 						alternativeAliasClass.Package = extClass.Package;
+						//alternativeAliasClass.SrcJson = extClass.SrcJson;
 						alternativeAliasClass.Name.PackagedNamespace = reader.GetPackagedNamespaceFromFullClassName(
 							extClass.Name.FullName
 						);
@@ -86,6 +87,7 @@ namespace ExtTs.Processors {
 				}
 			);
 			baseObjectClass.Package = ExtJsPackage.CORE;
+			//baseObjectClass.SrcJson = "Generator";
 			baseObjectClass.Name.PackagedNamespace = this.processor.Reader.GetPackagedNamespaceFromFullClassName(
 				extGlobalClassName
 			);
@@ -130,6 +132,7 @@ namespace ExtTs.Processors {
 						standardClass.Docs
 					);
 					configClass.Package = standardClass.Package;
+					//configClass.SrcJson = standardClass.SrcJson;
 					configClass.Name.PackagedNamespace = standardClass.Name.PackagedNamespace;
 					configClass.ClassType = ClassType.CLASS_CONFIGS;
 					configClass.Link = new string[] {
@@ -234,6 +237,7 @@ namespace ExtTs.Processors {
 						standardClass.Docs
 					);
 					eventClass.Package = standardClass.Package;
+					//eventClass.SrcJson = standardClass.SrcJson;
 					eventClass.Name.PackagedNamespace = standardClass.Name.PackagedNamespace;
 					eventClass.ClassType = ClassType.CLASS_EVENTS;
 					eventClass.Link = new string[] {
@@ -383,6 +387,7 @@ namespace ExtTs.Processors {
 						standardClass.Docs
 					);
 					staticsClass.Package = standardClass.Package;
+					//staticsClass.SrcJson = standardClass.SrcJson;
 					staticsClass.Name.PackagedNamespace = standardClass.Name.PackagedNamespace;
 					staticsClass.ClassType = ClassType.CLASS_STATICS;
 					staticsClass.Link = new string[] {
@@ -444,6 +449,7 @@ namespace ExtTs.Processors {
 						standardClass.Docs
 					);
 					definitionsClass.Package = standardClass.Package;
+					//definitionsClass.SrcJson = standardClass.SrcJson;
 					definitionsClass.Name.PackagedNamespace = standardClass.Name.PackagedNamespace;
 					definitionsClass.ClassType = ClassType.CLASS_DEFINITIONS;
 					definitionsClass.Link = new string[] {
@@ -619,6 +625,7 @@ namespace ExtTs.Processors {
 				new string[] { interfaceDocs }
 			);
 			baseInterface.Package = ExtJsPackage.CORE;
+			//baseInterface.SrcJson = "Generator";
 			baseInterface.Name.PackagedNamespace = this.processor.Reader.GetPackagedNamespaceFromFullClassName(
 				interfaceFullName
 			);

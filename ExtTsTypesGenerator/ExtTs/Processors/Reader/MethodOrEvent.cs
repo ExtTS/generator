@@ -146,6 +146,7 @@ namespace ExtTs.Processors {
 						returnDocs
 					);
 					returnClass.Package = extClass.Package;
+					//returnClass.SrcJson = this.srcJson;
 					returnClass.Name.PackagedNamespace = this.GetPackagedNamespaceFromFullClassName(
 						extClass.Name.FullName
 					);
@@ -217,7 +218,12 @@ namespace ExtTs.Processors {
 				);
 			}
 			int paramIndex = 0;
+			List<string> readParamNames = new List<string>();
 			foreach (MemberParam param in extObjectMember.Params) {
+				// Somethimes there could be probles with duplicated params in JSDuck output, 
+				// for example methods in version 6.2.0: Ext.util.Filter.isEqual? (filter: Ext.util.Filter, filter: Ext.util.Filter): boolean; ...
+				if (readParamNames.Contains(param.Name)) continue;
+				readParamNames.Add(param.Name);
 				this.readFunctionParam(
 					extObjectMember, param, ref funcParamsSyntaxCollections, ref lastParamTypes,
 					eventCompleting, currentClassName, eventOrMethodName, isStatic, eventsCompleting, lastParamIndex,	paramIndex

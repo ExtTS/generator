@@ -296,10 +296,13 @@ namespace ExtTs.Processors {
 						? unknownTypeName2
 						: unknownTypeNamespace + "." + unknownTypeName2;
 					unknownTypePlaces = this.processor.Store.UnknownTypes[unknownTypeFullName];
-					this.writeResultLine("/** " + unknownTypePlaces + " */");
 					if (noNamespace) {
-						this.writeResultLine("declare class " + unknownTypeName2 + " {}");
+						if (unknownTypeName2 != "true" && unknownTypeName2 != "false") {
+							this.writeResultLine("/** " + unknownTypePlaces + " */");
+							this.writeResultLine("declare class " + unknownTypeName2 + " {}");
+						}
 					} else {
+						this.writeResultLine("/** " + unknownTypePlaces + " */");
 						if (
 							unknownTypeName2 == SpecialsGenerator.STATICS_NAME_ADDITION || 
 							unknownTypeName2 == SpecialsGenerator.CONFIGS_NAME_ADDITION || 

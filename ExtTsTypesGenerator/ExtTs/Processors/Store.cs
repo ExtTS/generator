@@ -52,42 +52,48 @@ namespace ExtTs.Processors {
 		// "[place]Namespace.full.path.ClassName.methodName:paramName" => "raw correct param type definition"
 		protected internal Dictionary<string, string> TypesFixes = new Dictionary<string, string>();
 		
-		protected internal void AddExtClass (ExtClass extClass) {
+		protected internal void AddExtClass (ExtClass extClass, bool merge = false) {
 			if (this.insideLock) {
-				this._addExtClass(extClass);
+				this._addExtClass(extClass, merge);
 			} else { 
 				lock (this.addLock) {
 					this.insideLock = true;
-					this._addExtClass(extClass);
+					this._addExtClass(extClass, merge);
 					this.insideLock = false;
 				}
 			}
 		}
-		protected internal void _addExtClass (ExtClass extClass) {
+		protected internal void _addExtClass (ExtClass extClass, bool merge = false) {
 			//if (extClass == null) Debugger.Break();
-			int index = this.ExtAllClasses.Count;
-			this.ExtAllClasses.Add(extClass);
-			this.ExtClassesMap.Add(extClass.Name.FullName, index);
-			if (extClass.Extends != null)
-				this.ExtClassesWithParent.Add(index);
-			if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_STANDARD) {
-				this.ExtStandardClasses.Add(extClass);
-				if (extClass.Singleton)
-					this.ExtStandardSingletonClasses.Add(extClass);
-			} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_ALIAS) {
-				this.ExtAliasClasses.Add(extClass);
-			} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_METHOD_PARAM_CALLBACK) {
-				this.ExtCallbackClasses.Add(extClass.Name.FullName, extClass);
-			} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_METHOD_PARAM_CONF_OBJ) {
-				this.ExtMethodParamsClasses.Add(extClass);
-			} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_STATICS) {
-				this.ExtStaticsClasses.Add(extClass);
-			} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_CONFIGS) {
-				this.ExtStaticsClasses.Add(extClass);
-			} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_DEFINITIONS) {
-				this.ExtDefinitionsClasses.Add(extClass);
-			} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_EVENTS) {
-				this.ExtEventsClasses.Add(extClass);
+			int index;
+			if (this.ExtClassesMap.ContainsKey(extClass.Name.FullName) && merge) {
+				index = this.ExtClassesMap[extClass.Name.FullName];
+				this.ExtAllClasses[index].MergeWithMembers(extClass);
+			} else {
+				index = this.ExtAllClasses.Count;
+				this.ExtAllClasses.Add(extClass);
+				this.ExtClassesMap.Add(extClass.Name.FullName, index);
+				if (extClass.Extends != null)
+					this.ExtClassesWithParent.Add(index);
+				if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_STANDARD) {
+					this.ExtStandardClasses.Add(extClass);
+					if (extClass.Singleton)
+						this.ExtStandardSingletonClasses.Add(extClass);
+				} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_ALIAS) {
+					this.ExtAliasClasses.Add(extClass);
+				} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_METHOD_PARAM_CALLBACK) {
+					this.ExtCallbackClasses.Add(extClass.Name.FullName, extClass);
+				} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_METHOD_PARAM_CONF_OBJ) {
+					this.ExtMethodParamsClasses.Add(extClass);
+				} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_STATICS) {
+					this.ExtStaticsClasses.Add(extClass);
+				} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_CONFIGS) {
+					this.ExtStaticsClasses.Add(extClass);
+				} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_DEFINITIONS) {
+					this.ExtDefinitionsClasses.Add(extClass);
+				} else if (extClass.ClassType == ExtTypes.Enums.ClassType.CLASS_EVENTS) {
+					this.ExtEventsClasses.Add(extClass);
+				}
 			}
 		}
 		protected internal void AddTypePlace(TypeDefinitionPlace typeDefinitionPlace, string definitionFullPath, string memberOrParamName, string typeName) {

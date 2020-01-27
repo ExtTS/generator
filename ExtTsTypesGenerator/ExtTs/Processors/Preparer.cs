@@ -99,7 +99,7 @@ namespace ExtTs.Processors {
 					this.dirTransfers.Add(new DirTransfer {
 						TargetDirFullPath = targetDirFullPath,
 						SrcDirFullPath = this.processor.Store.SourceFullPath + "/" + toolkitOverridesRelPath,
-						AppendToExisting = false
+						AppendToExisting = true
 					});
 				}
 			}
@@ -149,6 +149,8 @@ namespace ExtTs.Processors {
 					);
 					targetStream.Write(twoNewLinesBytes, 0, twoNewLinesBytes.Length);
 					srcStream.CopyTo(targetStream);
+					srcStream.Close();
+					targetStream.Close();
 				}
 				progress = 0.0;
 				if (i > 0)
