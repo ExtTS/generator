@@ -12,6 +12,7 @@
 ## Features
 - Unzips necessary source files, parse (by JS Duck) and generates TypeScript definition files.
 - Generates definitions as single file or in multiple files (not to work with one very large file).
+- Generate type definitions separately only for classic toolkit or only for modern toolkit, not together, it's not possible yet, not implemented.
 - Generates all classes, interfaces and members with optional JS Docs.
 - Generates definitions with optional custom documentation base URL 
   to generate JS Docs links into your custom offline documentation.
