@@ -41,7 +41,7 @@ Best way to understand how to use the definitions are examples here:
       });
       ```
   - Interfaces to define extended classes like this:
-    - ```
+    - ```ts
       Ext.define('App.controller.Main', <Ext.app.Controller.Def>{
          extend: 'Ext.app.Controller',
          config: <Ext.app.Controller.Cfg>{
@@ -53,7 +53,7 @@ Best way to understand how to use the definitions are examples here:
       });
       ```
   - Interfaces for events objects (to define `listeners` property)
-    - ```
+    - ```typescript
       Ext.define('App.view.MainTab', <Ext.panel.Panel.Def & Ext.panel.Panel.Cfg>{
          extend: 'Ext.panel.Panel',
          opened: true,
