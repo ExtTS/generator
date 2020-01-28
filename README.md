@@ -83,4 +83,4 @@ Best way to understand how to use the definitions are examples here:
 - **v6.2.0 classic - TESTED, working OK**
 - **v6.2.0 modern - TESTED, working OK with few manual fixes**
 - **v7.0.0 classic - TESTED, working OK with few manual fixes**
-- **v7.0.0 modern - TESTED, working OK** (4 errors fixed manually)
+- **v7.0.0 modern - TESTED, working OK** (5 errors fixed manually)
