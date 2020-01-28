@@ -81,6 +81,6 @@ Best way to understand how to use the definitions are examples here:
 - **v6.0.1 classic - TESTED, working OK**
 - **v6.0.1 modern - TESTED, working OK**
 - **v6.2.0 classic - TESTED, working OK**
-- **v6.2.0 modern - TESTED, working OK**
+- **v6.2.0 modern - TESTED, working OK** (1 error fixed manually)
 - **v7.0.0 classic - TESTED, working OK**
 - **v7.0.0 modern - TESTED, working OK** (5 errors fixed manually)
