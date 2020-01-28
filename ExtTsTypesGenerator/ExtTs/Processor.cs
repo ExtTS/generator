@@ -35,6 +35,7 @@ namespace ExtTs {
 		protected internal string SourcePackageFullPath = null;
 		protected internal string ResultsDirFullPath = null;
 		protected internal List<Exception> Exceptions;
+		protected internal List<string> JsDuckErrors;
 		protected internal ProcessingInfoHandler ProcessingInfoHandler = null;
 		protected internal UserPromptHandler UserPromptHandler = null;
 		protected internal bool OverwriteExistingFiles = false;
@@ -42,8 +43,9 @@ namespace ExtTs {
 		protected internal ExtJsPackage[] SuportedPackages = null;
 		protected internal bool GenerateJsDocs = true;
 		protected internal bool GenerateSingleFile = true;
+		protected internal bool DebuggingDisplayJsDuckErrors = false;
+		protected internal bool DebuggingTmpDirDataUse = false;
 		protected FinishedHandler finishedHandler;
-		protected bool debuggingTmpDirDataUse = false;
 		protected double allClassesCount = 0.0;
 
 		public static Processor CreateNewInstance () {
@@ -66,8 +68,10 @@ namespace ExtTs {
 			this.TypesChecker = new TypesChecker(this);
 			this.ResultsGenerator = new ResultsGenerator(this);
 			this.Exceptions = new List<Exception>();
+			this.JsDuckErrors = new List<string>();
 			this.ProcessingInfo = new ProcessingInfo();
 		}
+
 		public List<string> GetSupportedVersions () {
 			return VersionSpecsAndFixes.DocsUrls.Keys.ToList<string>();
 		}
@@ -156,9 +160,16 @@ namespace ExtTs {
 			this.ProcessingInfoHandler = processingInfoHandler;
 			return this;
 		}
-		public Processor SetDebuggingTmpDirDataUse (bool debuggingTmpDirDataUse = true) {
-			this.debuggingTmpDirDataUse = debuggingTmpDirDataUse;
+		public Processor SetDebuggingDisplayJsDuckErrors(bool debuggingDisplayJsDuckErrors = true) {
+			this.DebuggingDisplayJsDuckErrors = debuggingDisplayJsDuckErrors;
 			return this;
+		}
+		public Processor SetDebuggingTmpDirDataUse (bool debuggingTmpDirDataUse = true) {
+			this.DebuggingTmpDirDataUse = debuggingTmpDirDataUse;
+			return this;
+		}
+		public List<string> GetJsDuckErrors() {
+			return this.JsDuckErrors;
 		}
 		public List<Exception> GetExceptions() {
 			return this.Exceptions;
@@ -168,10 +179,10 @@ namespace ExtTs {
 
 			if (!this.processStart()) return;
 
-			if (!this.debuggingTmpDirDataUse) 
+			if (!this.DebuggingTmpDirDataUse) 
 				if (!this.processZipPackage()) return;
 
-			if (!this.debuggingTmpDirDataUse) {
+			if (!this.DebuggingTmpDirDataUse) {
 				this.processJsDuckExtraction(delegate (bool processingSuccess) {
 					// Do not end processing if there are uknown types - it's better to fix it manually later:
 					/*if (!processingSuccess) { 
@@ -276,7 +287,7 @@ namespace ExtTs {
 				this.Store.SourcesPaths = VersionSpecsAndFixes.SourcesPaths[this.Version.Major];
 			if (!this.ResultsGenerator.CheckResultsDirectory())
 				return false;
-			if (!this.debuggingTmpDirDataUse) 
+			if (!this.DebuggingTmpDirDataUse) 
 				if (!this.Extractor.CheckTmpDirectory())
 					return false;
 			this.Reader.SetUpJsDocsBaseUrl();

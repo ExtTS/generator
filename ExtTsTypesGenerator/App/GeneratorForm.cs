@@ -49,10 +49,10 @@ namespace Generator {
 			this.initFormControlsValues();
 #if DEBUG
 			/*
-			this.versionSelect.Text = "7.0.0";
+			this.versionSelect.Text = "6.0.1";
 			this.toolkitSelect.Enabled = true;
-			this.toolkitSelect.Text = "Classic";
-			//this.toolkitSelect.Text = "Modern";
+			//this.toolkitSelect.Text = "Classic";
+			this.toolkitSelect.Text = "Modern";
 			this.generateSingleFile.Checked = true;
 			this.packageAMF.Checked = true;
 			this.packageCharts.Checked = true;
@@ -61,10 +61,11 @@ namespace Generator {
 			this.packageLegacy.Checked = true;
 			this.packageSOAP.Checked = true;
 			this.packageUX.Checked = true;
-			this.sourceZipFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-7.0.0-trial.zip";
-			this.resultDirFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/example-project-700-classic/js/types/";
+			this.displayJsDuckErrors.Checked = true;
+			this.sourceZipFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-6.0.1-gpl.zip";
+			this.resultDirFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/example-project-601-modern/js/types/";
 			this.checkInputs();
-			this.processor.SetDebuggingTmpDirDataUse(true);
+			//this.processor.SetDebuggingTmpDirDataUse(true);
 			*/
 #endif
 		}
@@ -268,6 +269,7 @@ namespace Generator {
 			// Clear progress text:
 			this.progressText.Text = "";
 			// Set handlers: 
+			this.processor.SetDebuggingDisplayJsDuckErrors(this.displayJsDuckErrors.Checked);
 			this.processor.SetUserPromptHandler(this.userPrompt);
 			this.processor.SetProcessingInfoHandler(this.displayProgress);
 			// Disable controls:
@@ -367,68 +369,85 @@ namespace Generator {
 			});
 		}
 		protected void processedHandler (bool success, ProcessingInfo processingInfo) {
-			List<Exception> errors = this.processor.GetExceptions();
-			StringBuilder textContentSb = new StringBuilder();
-			string title = (success || processingInfo.StageIndex == processingInfo.StagesCount)
-				? (errors.Count == 0
-					? "Processing successfully finished."
-					: "Processing finished with following errors:")
-				: "Processing can NOT start due to those errors:";
-			if (success && errors.Count == 0) {
-				MessageBox.Show(title, "Finished");
-			} else {
-				textContentSb.AppendLine(title);
-				textContentSb.AppendLine("");
-				foreach (Exception err in errors) {
-					if (err is ArgumentException) {
+			this.Invoke((MethodInvoker)delegate {
+				List<string> jsDuckErrors = this.displayJsDuckErrors.Checked
+					? this.processor.GetJsDuckErrors()
+					: new List<string>();
+				List<Exception> exceptions = this.processor.GetExceptions();
+				StringBuilder textContentSb = new StringBuilder();
+				string title = (success || processingInfo.StageIndex == processingInfo.StagesCount)
+					? ((jsDuckErrors.Count == 0 && exceptions.Count == 0)
+						? "Processing successfully finished."
+						: "Processing finished with following errors:")
+					: "Processing can NOT start due to those errors:";
+				if (success && jsDuckErrors.Count == 0 && exceptions.Count == 0) {
+					MessageBox.Show(title, "Finished");
+				} else {
+					if (jsDuckErrors.Count > 0) { 
+						textContentSb.AppendLine(title);
 						textContentSb.AppendLine("");
-						textContentSb.AppendLine("\t"+err.Message);
-					} else {
-						textContentSb.AppendLine("");
-						textContentSb.AppendLine(Desharp.Debug.Dump(err, new Desharp.DumpOptions {
-							SourceLocation = true,
-							Return = true,
-						}));
+						foreach (string jsDuckError in jsDuckErrors) {
+							textContentSb.AppendLine("");
+							textContentSb.AppendLine("\t" + jsDuckError);
+						}
 					}
+					if (exceptions.Count > 0) {
+						textContentSb.AppendLine(title);
+						textContentSb.AppendLine("");
+						foreach (Exception ex in exceptions) {
+							if (ex is ArgumentException) {
+								textContentSb.AppendLine("");
+								textContentSb.AppendLine("\t" + ex.Message);
+							} else {
+								textContentSb.AppendLine("");
+								textContentSb.AppendLine(
+									Desharp.Debug.Dump(ex, new Desharp.DumpOptions {
+										SourceLocation = true,
+										Return = true,
+									}).Replace("\t", "   ")
+								);
+							}
+						}
+					}
+					int width = 800;
+					int height = 600;
+					Form msgWindow = new Form() {
+						Width = width,
+						Height = height,
+						FormBorderStyle = FormBorderStyle.FixedDialog,
+						Text = success ? "Finished with errors." : "Not started due to errors.",
+						StartPosition = FormStartPosition.CenterScreen
+					};
+					TextBox textContent = new TextBox() {
+						Left = 20,
+						Top = 20,
+						Width = width - 60,
+						Height = height - 60 - 30 - 30,
+						Text = textContentSb.ToString().Replace("\n", "\r\n"),
+						BackColor = this.BackColor,
+						Multiline = true,
+						ReadOnly = true,
+					};
+					Button confirmBtn = new Button() {
+						Text = "Ok",
+						Top = height - 60 - 30,
+						Left = (width / 2) - (100 / 2),
+						Width = 100,
+						DialogResult = DialogResult.OK
+					};
+					confirmBtn.Click += (sender, e) => {
+						msgWindow.Close();
+					};
+					msgWindow.Controls.Add(textContent);
+					textContent.DeselectAll();
+					msgWindow.Controls.Add(confirmBtn);
+					msgWindow.AcceptButton = confirmBtn;
+					msgWindow.ShowDialog();
 				}
-				int width = 800;
-				int height = 600;
-				Form msgWindow			= new Form() {
-					Width			= width,
-					Height			= height,
-					FormBorderStyle = FormBorderStyle.FixedDialog,
-					Text			= success ? "Finished with errors." : "Not started due to errors.",
-					StartPosition	= FormStartPosition.CenterScreen
-				};
-				TextBox textContent	= new TextBox() {
-					Left			= 20,
-					Top				= 20,
-					Width			= width - 60,
-					Height			= height - 60 - 30 - 30,
-					Text			= textContentSb.ToString().Replace("\n", "\r\n"),
-					BackColor		= this.BackColor,
-					Multiline		= true,
-					ReadOnly		= true,
-				};
-				Button confirmBtn = new Button() {
-					Text			= "Ok",
-					Top				= height - 60 - 30,
-					Left			= (width / 2) - (100 / 2),
-					Width			= 100,
-					DialogResult	= DialogResult.OK
-				};
-				confirmBtn.Click += (sender, e) => {
-					msgWindow.Close();
-				};
-				msgWindow.Controls.Add(textContent);
-				textContent.DeselectAll();
-				msgWindow.Controls.Add(confirmBtn);
-				msgWindow.AcceptButton = confirmBtn;
-				msgWindow.ShowDialog();
-			}
-			this.setControlsEnabled(true);
-			this.initProcessorInstance();
-			this.checkInputs();
+				this.setControlsEnabled(true);
+				this.initProcessorInstance();
+				this.checkInputs();
+			});
 		}
 		protected void setControlsEnabled (bool enabled) {
 			List<string> controls = new List<string>() {
@@ -443,6 +462,7 @@ namespace Generator {
 				"resultDirFullPath",
 				"btnSelectSouzceZip",
 				"btnSelectResultDir",
+				"displayJsDuckErrors",
 			};
 			controls.AddRange(
 				GeneratorForm.PackagesFields.Values.ToArray<string>()

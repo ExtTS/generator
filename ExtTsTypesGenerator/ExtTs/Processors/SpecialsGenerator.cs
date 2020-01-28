@@ -48,10 +48,16 @@ namespace ExtTs.Processors {
 							extClass.Name.FullName
 						);
 						alternativeAliasClass.ClassType = ClassType.CLASS_ALIAS;
-						if (store.ExtClassesMap.ContainsKey(alternativeAliasClass.Name.FullName)) {
+						if (store.ExtClassesMap.ContainsKey(
+							alternativeAliasClass.Name.FullName
+						)) {
 							try {
 								throw new Exception(
-									$"There was not possible to create alias class `{alternativeAliasClass.Name.FullName}` for class `{extClass.Name.FullName}`. Class with this name already exists."
+									"There was not possible to create alias class `"
+										+ alternativeAliasClass.Name.FullName
+										+ " ` for class `"
+										+ extClass.Name.FullName
+										+ "`. Class with this name already exists."
 								);
 							} catch (Exception e) {
 								this.processor.Exceptions.Add(e);

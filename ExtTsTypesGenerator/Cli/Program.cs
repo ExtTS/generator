@@ -11,7 +11,9 @@ using System.Text;
 namespace Cli {
 	class Program {
 		static void Main(string[] args) {
-			// THIS CLI APP IS FOR DEVELOPMENT PURPOSES ONLY:
+			Console.WriteLine("THIS CLI APP IS FOR DEVELOPMENT PURPOSES ONLY. PRESS RETURN TO EXIT.");
+			Console.ReadLine();
+			return;
 			Processor proc = Processor.CreateNewInstance()
 				//.SetDebuggingTmpDirDataUse(true) // to skip first 3 slowest steps and use TMP dir data
 				.SetVersion("7.0.0")

@@ -21,6 +21,7 @@ namespace ExtTs.Processors {
 			"Event", 
 			"Window", 
 			"NodeList", 
+			"Promise", 
 			"CSSStyleSheet", 
 			"CSSStyleRule", 
 			"google.maps.Map", 
@@ -47,6 +48,7 @@ namespace ExtTs.Processors {
 		//protected StringBuilder execProcStdOut;
 		protected StringBuilder execProcStdErr;
 		protected List<Exception> exceptions = new List<Exception>();
+		protected List<string> jsDuckErrors = new List<string>();
 
 		public JsDuck(Processor processor) {
 			this.processor = processor;
@@ -73,7 +75,11 @@ namespace ExtTs.Processors {
 			} else {
 				if (this.exceptions.Count > 0)
 					this.processor.Exceptions.AddRange(this.exceptions);
-				this.jsDuckFinishedHandler.Invoke(this.exceptions.Count == 0);
+				if (this.jsDuckErrors.Count > 0)
+					this.processor.JsDuckErrors.AddRange(this.jsDuckErrors);
+				this.jsDuckFinishedHandler.Invoke(
+					this.exceptions.Count == 0 && this.jsDuckErrors.Count == 0
+				);
 			}
 		}
 		protected void completeProcessingCommand() {
@@ -164,13 +170,6 @@ namespace ExtTs.Processors {
 		}
 		protected void completeResultErrors () {
 			string allLines = this.execProcStdErr.ToString();
-			if (allLines.Contains("Error")) { 
-				try {
-					throw new Exception("JS Duck: \n" + allLines);
-				} catch (Exception ex1) { 
-					this.exceptions.Add(ex1);
-				}
-			}
 			List<string> resultLines = allLines
 				.Split(new char[] { '\n' })
 				.ToList<string>();
@@ -179,39 +178,47 @@ namespace ExtTs.Processors {
 			List<string> rawUnknownTypes;
 			string rawUnknownType;
 			List<string> unknownTypes;
-			foreach (string resultLine in resultLines) {
-				try {
-					pos = resultLine.IndexOf("Warning: ");
-					if (pos != -1) {
-						pos = resultLine.IndexOf(unknownTypesTitle);
-						if (pos != -1) {
-							unknownTypes = new List<string>();
-							rawUnknownTypes = resultLine
-								.Substring(pos + unknownTypesTitle.Length)
-								.Replace(", ", "/").Replace(",", "/").Replace("|", "/").Replace("\r", "")
-								.Split(new char[] { '/' })
-								.ToList<string>();
-							for (int i = 0; i < rawUnknownTypes.Count; i++) {
-								rawUnknownType = rawUnknownTypes[i]
-									.Replace("[", "")
-									.Replace("]", "");
-								if (
-									JsDuck.ExternalTypes.Contains(rawUnknownType) ||
-									JsDuck.NotUnknownTypes.Contains(rawUnknownType) || (
-										rawUnknownType.Length > 4 &&
-										rawUnknownType.Substring(0, 4) == "Ext."
-									)
-								) continue;
-								unknownTypes.Add(rawUnknownType);
-							}
-							if (unknownTypes.Count > 0)
-								throw new Exception(
-									$"JS Duck - unknown type(s) found: `{String.Join(", ", unknownTypes)}` ({resultLine})."
-								);
-						}
+			bool errorType;
+			string resultLine;
+			for (int i = 0; i < resultLines.Count; i++) {
+				resultLine = resultLines[i];
+				pos = resultLine.IndexOf("Warning: ");
+				errorType = false;
+				if (pos == -1) {
+					pos = resultLine.IndexOf("Error: ");
+					errorType = true;
+				}
+				if (pos == -1) continue;
+				pos = resultLine.IndexOf(unknownTypesTitle);
+				if (pos == -1 && !errorType) continue;
+				unknownTypes = new List<string>();
+				if (errorType) {
+					this.jsDuckErrors.Add(
+						$"JS Duck error: ({resultLine})."
+					);
+				} else {
+					rawUnknownTypes = resultLine
+						.Substring(pos + unknownTypesTitle.Length)
+						.Replace(", ", "/").Replace(",", "/").Replace("|", "/").Replace("\r", "")
+						.Split(new char[] { '/' })
+						.ToList<string>();
+					for (int j = 0; j < rawUnknownTypes.Count; j++) {
+						rawUnknownType = rawUnknownTypes[j]
+							.Replace("[", "")
+							.Replace("]", "");
+						if (
+							JsDuck.ExternalTypes.Contains(rawUnknownType) ||
+							JsDuck.NotUnknownTypes.Contains(rawUnknownType) || (
+								rawUnknownType.Length > 4 &&
+								rawUnknownType.Substring(0, 4) == "Ext."
+							)
+						) continue;
+						unknownTypes.Add(rawUnknownType);
 					}
-				} catch (Exception ex2) {
-					this.exceptions.Add(ex2);
+					if (unknownTypes.Count > 0)
+						this.jsDuckErrors.Add(
+							$"JS Duck warning - unknown type(s) found - `{String.Join(", ", unknownTypes)}`: ({resultLine})."
+						);
 				}
 			}
 		}

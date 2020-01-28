@@ -225,6 +225,8 @@ namespace ExtTs.Processors {
 			// fix them into: Ext.dataview.component.ListItem | Ext.dataview.component.SimpleListItem
 			int openBracketPos;
 			int closeBracketPos;
+			bool beginWithQuot;
+			bool endWithQuot;
 			foreach (string rawItem in rawResult) {
 				openBracketPos = rawItem.IndexOf("(");
 				closeBracketPos = rawItem.LastIndexOf(")");
@@ -236,7 +238,15 @@ namespace ExtTs.Processors {
 						rawItem.Substring(0, openBracketPos) + rawItem.Substring(closeBracketPos + 1)
 					);
 				} else {
-					result.Add(rawItem);
+					beginWithQuot = rawItem.StartsWith("'");
+					endWithQuot = rawItem.EndsWith("'");
+					if (beginWithQuot && !endWithQuot) {
+						result.Add(rawItem + "'");
+					} else if (!beginWithQuot && endWithQuot) {
+						result.Add("'" + rawItem);
+					} else {
+						result.Add(rawItem);
+					}
 				}
 			}
 			return result;

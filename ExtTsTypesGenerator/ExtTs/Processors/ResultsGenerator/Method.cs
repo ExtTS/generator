@@ -151,7 +151,8 @@ namespace ExtTs.Processors {
 				renderedParamsAndVariantsIndexes = new Dictionary<string, int>();
 				foreach (Member methodVariantsItem in methodVariants) {
 					methodVariant = methodVariantsItem as Method;
-					renderedParamsSection = this.generateMethodParams(extClass, methodVariant.Params);
+					//renderedParamsSection = this.generateMethodParams(extClass, methodVariant.Params);
+					renderedParamsSection = methodVariant.ParamsRendered;
 					if (!renderedParamsAndVariantsIndexes.ContainsKey(renderedParamsSection)) {
 						renderedParamsAndVariantsIndexes.Add(renderedParamsSection, variantsByParams.Count);
 						variantsByParams.Add(methodVariant);
@@ -474,12 +475,18 @@ namespace ExtTs.Processors {
 			List<string> result = new List<string>();
 			string resultItem;
 			bool[] fixedOptionals = new bool[methodVariantParams.Count];
-			bool optional = true;
+			bool optional = false;
 			Param methodVariantParam;
-			for (int i = methodVariantParams.Count - 1; i >= 0; i -= 1) {
+			for (int i = 0; i < methodVariantParams.Count; i += 1) {
 				methodVariantParam = methodVariantParams[i];
-				optional = optional && methodVariantParam.Optional;
-				fixedOptionals[i] = optional;
+				if (optional && !methodVariantParam.Optional) { 
+					fixedOptionals[i] = true;
+				} else if (methodVariantParam.Optional && !optional) { 
+					fixedOptionals[i] = true;
+					optional = true;
+				} else {
+					fixedOptionals[i] = optional;
+				}
 			}
 			for (int i = 0; i < methodVariantParams.Count; i++) {
 				methodVariantParam = methodVariantParams[i];
