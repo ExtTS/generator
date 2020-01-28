@@ -41,6 +41,7 @@ namespace Generator {
 
 		public GeneratorForm() {
             this.InitializeComponent();
+			this.Text += " v" + typeof(Processor).Assembly.GetName().Version.ToString();
 		}
 		private void GeneratorForm_Shown(object sender, EventArgs e) {
 			this.initDocumentRoot();

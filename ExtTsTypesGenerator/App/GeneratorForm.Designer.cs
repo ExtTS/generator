@@ -470,7 +470,7 @@ namespace Generator
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.Name = "GeneratorForm";
-			this.Text = "Ext JS TypeScript Generator";
+			this.Text = "Ext.JS TS Types Generator";
 			this.Shown += new System.EventHandler(this.GeneratorForm_Shown);
 			this.progressGroupBox.ResumeLayout(false);
 			this.progressGroupBox.PerformLayout();
