@@ -36,7 +36,7 @@ namespace ExtTs.Processors {
 		protected static List<string> NotUnknownTypes = new List<string>() {
 			"Boolean", "Boollean",
 			"String", "Object", "Array", "Number", "Function",
-			"HTMLELement"
+			"HTMLELement", "HtmlElement"
 		};
 		protected Processor processor;
 		protected progressHandlerExtractingJsDocs progressHandlerExtractingJsDocs;

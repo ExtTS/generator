@@ -81,11 +81,18 @@ namespace ExtTs.Processors {
 		protected void completeBaseDirs () {
 			this.baseDirs = new List<string>();
 			PkgCfg packageCfg;
+			PkgCfgAdv packageCfgAdv;
 			bool extrackToolkitDirs = this.processor.Version.Major >= 6;
 			foreach (var item in this.processor.Store.SourcesPaths) {
 				if (!this.processor.Packages.Contains(item.Key)) continue;
 				packageCfg = item.Value;
-				this.completeBaseDirAndAddIfNotExist(packageCfg.Source);
+				if (packageCfg is PkgCfgAdv) {
+					packageCfgAdv = packageCfg as PkgCfgAdv;
+					for (int i = 0; i < packageCfgAdv.Source.Length; i++) 
+						this.completeBaseDirAndAddIfNotExist(packageCfgAdv.Source[i]);
+				} else {
+					this.completeBaseDirAndAddIfNotExist(packageCfg.Source);
+				}
 				this.completeBaseDirAndAddIfNotExist(packageCfg.SourceOverrides);
 				if (!extrackToolkitDirs) continue;
 				if (this.processor.Toolkit == "classic") { 

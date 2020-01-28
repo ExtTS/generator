@@ -50,10 +50,10 @@ namespace Generator {
 			this.initFormControlsValues();
 #if DEBUG
 			/*
-			this.versionSelect.Text = "6.0.1";
+			this.versionSelect.Text = "5.0.1";
 			this.toolkitSelect.Enabled = true;
 			//this.toolkitSelect.Text = "Classic";
-			this.toolkitSelect.Text = "Modern";
+			//this.toolkitSelect.Text = "Modern";
 			this.generateSingleFile.Checked = true;
 			this.packageAMF.Checked = true;
 			this.packageCharts.Checked = true;
@@ -63,8 +63,8 @@ namespace Generator {
 			this.packageSOAP.Checked = true;
 			this.packageUX.Checked = true;
 			this.displayJsDuckErrors.Checked = true;
-			this.sourceZipFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-6.0.1-gpl.zip";
-			this.resultDirFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/example-project-601-modern/js/types/";
+			this.sourceZipFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-5.0.1-gpl.zip";
+			this.resultDirFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/example-project-501/js/types/";
 			this.checkInputs();
 			//this.processor.SetDebuggingTmpDirDataUse(true);
 			*/

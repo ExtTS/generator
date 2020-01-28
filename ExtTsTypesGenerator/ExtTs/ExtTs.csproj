@@ -121,6 +121,7 @@
     <Compile Include="Processors\ResultsGenerator\Class.cs" />
     <Compile Include="Processors\ResultsGenerator\Writing.cs" />
     <Compile Include="Processors\Structs\PackageSource.cs" />
+    <Compile Include="Processors\Structs\PkgCfgAdv.cs" />
     <Compile Include="Processors\Structs\PromptInfo.cs" />
     <Compile Include="Processors\Structs\ProcessingInfo.cs" />
     <Compile Include="Processor.cs" />

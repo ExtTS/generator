@@ -121,7 +121,7 @@ namespace ExtTs.Processors {
 						// correct only `array` to `any[]` and do not register anything for later chacking:
 						typeItem = "any[]";
 					}
-				} else if (typeItemLower == "mixed" || typeItemLower == "*" || typeItemLower == "type" /* always in private classes */) {
+				} else if (typeItemLower == "mixed" || typeItemLower == "*" || typeItemLower == "type" /* always in private classes */ || typeItemLower == "[type]") {
 					// If type is any special JS Docs wildcard - corect it to TypeScript `any` type:
 					typeItem = "any";
 				} else {

@@ -56,21 +56,27 @@ namespace ExtTs.Processors {
 			if (!Directory.Exists(targetDirFullPath))
 				Directory.CreateDirectory(targetDirFullPath);
 			// Complete source dir full path - it always exist for any package:
-			string packageBaseSourceDir = this.processor.Store.SourceFullPath + "/" + pkgCfg.Source;
-			if (!Directory.Exists(packageBaseSourceDir)) {
-				if (pkgCfg.Optional) {
-					packagesClone.Remove(packageName); // not in this version
-					return;
+			string[] srcDirs = new string[] { pkgCfg.Source };
+			if (pkgCfg is PkgCfgAdv) 
+				srcDirs = (pkgCfg as PkgCfgAdv).Source;
+			string packageBaseSourceDir;
+			for (int i = 0; i < srcDirs.Length; i++) {
+				packageBaseSourceDir = this.processor.Store.SourceFullPath + "/" + srcDirs[i];
+				if (!Directory.Exists(packageBaseSourceDir)) {
+					if (pkgCfg.Optional) {
+						packagesClone.Remove(packageName); // not in this version
+						return;
+					}
+					throw new Exception(
+						$"Package `{packageName}` source directory `{srcDirs[i]}` not found in given ZIP file."
+					);
 				}
-				throw new Exception(
-					$"Package `{packageName}` source directory `{pkgCfg.Source}` not found in given ZIP file."
-				);
+				this.dirTransfers.Add(new DirTransfer {
+					TargetDirFullPath = targetDirFullPath,
+					SrcDirFullPath = packageBaseSourceDir,
+					AppendToExisting = false
+				});
 			}
-			this.dirTransfers.Add(new DirTransfer {
-				TargetDirFullPath = targetDirFullPath,
-				SrcDirFullPath = packageBaseSourceDir,
-				AppendToExisting = false
-			});
 			// Complete source overrides dir full path - it doesn't exist for all package:
 			if (!String.IsNullOrEmpty(pkgCfg.SourceOverrides)) {
 				this.dirTransfers.Add(new DirTransfer {
@@ -138,19 +144,23 @@ namespace ExtTs.Processors {
 					if (!Directory.Exists(targetDirFullPath))
 						Directory.CreateDirectory(targetDirFullPath); // it creates dir recursively
 				}
-				if (!appendToExisting) { 
-					File.Copy(srcFullPath, targetFullPath);
-				} else if (!File.Exists(targetFullPath)) {
+				if (!appendToExisting) {
+					if (File.Exists(targetFullPath)) 
+						throw new Exception("File `targetFullPath` already exists.");
 					File.Copy(srcFullPath, targetFullPath);
 				} else {
-					srcStream = File.OpenRead(srcFullPath);
-					targetStream = new FileStream(
-						targetFullPath, FileMode.Append, FileAccess.Write, FileShare.None
-					);
-					targetStream.Write(twoNewLinesBytes, 0, twoNewLinesBytes.Length);
-					srcStream.CopyTo(targetStream);
-					srcStream.Close();
-					targetStream.Close();
+					if (!File.Exists(targetFullPath)) {
+						File.Copy(srcFullPath, targetFullPath);
+					} else { 
+						srcStream = File.OpenRead(srcFullPath);
+						targetStream = new FileStream(
+							targetFullPath, FileMode.Append, FileAccess.Write, FileShare.None
+						);
+						targetStream.Write(twoNewLinesBytes, 0, twoNewLinesBytes.Length);
+						srcStream.CopyTo(targetStream);
+						srcStream.Close();
+						targetStream.Close();
+					}
 				}
 				progress = 0.0;
 				if (i > 0)

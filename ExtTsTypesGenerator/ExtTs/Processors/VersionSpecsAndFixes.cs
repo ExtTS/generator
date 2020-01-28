@@ -82,8 +82,8 @@ namespace ExtTs.Processors {
 					Source				= "packages/sencha-amf/src-ext/",
 					SourceOverrides		= ""
 				} },
-				{ "core",               new PkgCfg {
-					Source				= "src/",
+				{ "core",               new PkgCfgAdv {
+					Source              = new [] { "packages/sencha-core/src/", "src/" },
 					SourceOverrides		= "overrides/",
 				} },
 				{ "charts",             new PkgCfg {
@@ -201,6 +201,15 @@ namespace ExtTs.Processors {
 
 		// extNumericMajorVersion => "Wrong.full.path.ClassName" => "Correct.full.path.ClassName"
 		public static Dictionary<int, Dictionary<string, string>> ClassesFixes = new Dictionary<int, Dictionary<string, string>>() {
+			{ 5, new Dictionary<string, string>() {
+				{ "HtmlElement",											"HTMLElement"},
+				{ "XMLElement",												"Element"},
+				{ "TextNode",												"Text"},
+				{ "Class",													"Ext.Class"},
+				{ "Ext.data.session.Session",								"Ext.data.Session"},
+				{ "Ext.grid.filter.Filter",									"Ext.grid.filters.filter.Base"},
+				{ "Ext.grid.filters.filter.Filter",							"Ext.grid.filters.filter.Base"},
+			} },
 			{ 6, new Dictionary<string, string>() {
 				// Ext.drag.Constraint
 				{ "HTMLELement",											"HTMLElement"},
@@ -230,6 +239,10 @@ namespace ExtTs.Processors {
 
 		 // extNumericMajorVersion => "[place]Namespace.full.path.ClassName.methodName:paramName" => "raw correct param type definition"
 		public static Dictionary<int, Dictionary<string, string>> TypesFixes = new Dictionary<int, Dictionary<string, string>>() {
+			{ 5, new Dictionary<string, string>() {
+				// 5.0.1:
+				{ "[methodParam]Ext.grid.NavigationModel.focusItem.item"			, "Ext.Component" },
+			} },
 			{ 6, new Dictionary<string, string>() {
 				// 6.2.0 classic+modern:
 				{ "[methodParam]Ext.grid.plugin.RowWidget.getWidget.view"           , "any" },

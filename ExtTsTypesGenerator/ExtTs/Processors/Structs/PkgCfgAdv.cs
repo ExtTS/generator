@@ -4,16 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace ExtTs.Processors {
-	public class PkgCfg {
-		public string Source;
-		public string SourceOverrides;
-		public string Classic;
-		public string ClassicOverrides;
-		public string Modern;
-		public string ModernOverrides;
-		public bool Optional; // package could exist and doesn't exist in different subversions
-		public PkgCfg (
-			string src = "",
+	public class PkgCfgAdv: PkgCfg {
+		public new string[] Source;
+		public PkgCfgAdv (
+			string[] src = null,
 			string srcOverrides = "",
 			string classic = "",
 			string classicOverrides = "",
