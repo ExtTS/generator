@@ -34,14 +34,14 @@ Best way to understand how to use the definitions are examples here:
   - All Ext.JS framework classes as it is (including singletons as it is) like:
     - `Ext`, `Ext.Array`, `Ext.panel.Panel` etc...
   - Interfaces for configuration objects (to create classes by `Ext.create()`) like this:
-    - ```
+    - ```ts
       Ext.create('Ext.panel.Panel', <Ext.panel.Panel.Cfg>{
          title: `My Panel Title`,
          closable: true
       });
       ```
   - Interfaces to define extended classes like this:
-    - ```
+    - ```ts
       Ext.define('App.controller.Main', <Ext.app.Controller.Def>{
          extend: 'Ext.app.Controller',
          config: <Ext.app.Controller.Cfg>{
@@ -53,7 +53,7 @@ Best way to understand how to use the definitions are examples here:
       });
       ```
   - Interfaces for events objects (to define `listeners` property)
-    - ```
+    - ```ts
       Ext.define('App.view.MainTab', <Ext.panel.Panel.Def & Ext.panel.Panel.Cfg>{
          extend: 'Ext.panel.Panel',
          opened: true,
@@ -65,7 +65,7 @@ Best way to understand how to use the definitions are examples here:
       });
       ```
   - Interfaces for all structured method params
-    - ```
+    - ```ts
       Ext.Ajax.request(<Ext.data.Connection.methodParams.request.Options>{
          url: "?submit",
          success: function (response?: object, options?: object) {
@@ -81,6 +81,6 @@ Best way to understand how to use the definitions are examples here:
 - **v6.0.1 classic - TESTED, working OK**
 - **v6.0.1 modern - TESTED, working OK**
 - **v6.2.0 classic - TESTED, working OK**
-- **v6.2.0 modern - TESTED, working OK**
+- **v6.2.0 modern - TESTED, working OK** (1 error fixed manually)
 - **v7.0.0 classic - TESTED, working OK**
 - **v7.0.0 modern - TESTED, working OK** (5 errors fixed manually)
