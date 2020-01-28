@@ -76,6 +76,9 @@ Best way to understand how to use the definitions are examples here:
       ```
   - Callbacks, mixed things etc...
   - Generates a few unknown empty classes definitions in separate file named `ext-X.X.X-classic-unknown.d.ts`.
+  - Generated definitions could run automcompleting anywhere in your application, more info in this blog post:  
+    https://blorkfish.wordpress.com/2013/01/28/using-extjs-with-typescript/
+  - Generated definitions supports refactoring and code navigation in Visual Studio:-)
 
 ## Tetsted Ext.JS Versions And Toolkits
 - v4.x.x and lower - NOT TESTED, there might be some problems, let me know or make a pull request
