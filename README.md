@@ -34,7 +34,7 @@ Best way to understand how to use the definitions are examples here:
   - All Ext.JS framework classes as it is (including singletons as it is) like:
     - `Ext`, `Ext.Array`, `Ext.panel.Panel` etc...
   - Interfaces for configuration objects (to create classes by `Ext.create()`) like this:
-    - ```
+    - ```ts
       Ext.create('Ext.panel.Panel', <Ext.panel.Panel.Cfg>{
          title: `My Panel Title`,
          closable: true
@@ -53,7 +53,7 @@ Best way to understand how to use the definitions are examples here:
       });
       ```
   - Interfaces for events objects (to define `listeners` property)
-    - ```typescript
+    - ```ts
       Ext.define('App.view.MainTab', <Ext.panel.Panel.Def & Ext.panel.Panel.Cfg>{
          extend: 'Ext.panel.Panel',
          opened: true,
@@ -65,7 +65,7 @@ Best way to understand how to use the definitions are examples here:
       });
       ```
   - Interfaces for all structured method params
-    - ```
+    - ```ts
       Ext.Ajax.request(<Ext.data.Connection.methodParams.request.Options>{
          url: "?submit",
          success: function (response?: object, options?: object) {
