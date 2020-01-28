@@ -11,6 +11,7 @@
 
 ## Examples How To Use Ext.JS TypeScript Definitions
 Best way to understand how to use the definitions are examples here:  
+- [Example in Ext.JS 5.0.1](https://github.com/ExtTS/example-project-501)  
 - [Example in Ext.JS 6.0.1 classic](https://github.com/ExtTS/example-project-601-classic)  
 - [Example in Ext.JS 6.0.1 modern](https://github.com/ExtTS/example-project-601-modern)  
 - [Example in Ext.JS 6.2.0 classic](https://github.com/ExtTS/example-project-620-classic)  
@@ -77,7 +78,8 @@ Best way to understand how to use the definitions are examples here:
   - Generates a few unknown empty classes definitions in separate file named `ext-X.X.X-classic-unknown.d.ts`.
 
 ## Tetsted Ext.JS Versions And Toolkits
-- v5.x.x and lower - NOT TESTED, there might be some problems, let me know or make a pull request
+- v4.x.x and lower - NOT TESTED, there might be some problems, let me know or make a pull request
+- **v5.0.1 classic - TESTED, working OK**
 - **v6.0.1 classic - TESTED, working OK**
 - **v6.0.1 modern - TESTED, working OK**
 - **v6.2.0 classic - TESTED, working OK**
