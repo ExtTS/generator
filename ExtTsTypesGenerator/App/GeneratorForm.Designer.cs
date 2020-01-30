@@ -40,6 +40,7 @@ namespace Generator
 			this.progressText = new System.Windows.Forms.TextBox();
 			this.currentStepProgressLabel = new System.Windows.Forms.Label();
 			this.settingsGroupBox = new System.Windows.Forms.GroupBox();
+			this.generatePrivateMembers = new System.Windows.Forms.CheckBox();
 			this.toolkitLabel = new System.Windows.Forms.Label();
 			this.toolkitSelect = new System.Windows.Forms.ComboBox();
 			this.overwriteExisting = new System.Windows.Forms.CheckBox();
@@ -66,7 +67,6 @@ namespace Generator
 			this.customDocsUrl = new System.Windows.Forms.TextBox();
 			this.devGroupBox = new System.Windows.Forms.GroupBox();
 			this.displayJsDuckErrors = new System.Windows.Forms.CheckBox();
-			this.generatePrivateMembers = new System.Windows.Forms.CheckBox();
 			this.progressGroupBox.SuspendLayout();
 			this.settingsGroupBox.SuspendLayout();
 			this.pathsGroupBox.SuspendLayout();
@@ -192,6 +192,16 @@ namespace Generator
 			this.settingsGroupBox.TabIndex = 10;
 			this.settingsGroupBox.TabStop = false;
 			this.settingsGroupBox.Text = "1. Configuration:";
+			// 
+			// generatePrivateMembers
+			// 
+			this.generatePrivateMembers.AutoSize = true;
+			this.generatePrivateMembers.Location = new System.Drawing.Point(16, 128);
+			this.generatePrivateMembers.Name = "generatePrivateMembers";
+			this.generatePrivateMembers.Size = new System.Drawing.Size(199, 21);
+			this.generatePrivateMembers.TabIndex = 7;
+			this.generatePrivateMembers.Text = "Generate private members";
+			this.generatePrivateMembers.UseVisualStyleBackColor = true;
 			// 
 			// toolkitLabel
 			// 
@@ -457,18 +467,6 @@ namespace Generator
 			this.displayJsDuckErrors.TabIndex = 5;
 			this.displayJsDuckErrors.Text = "Display JS Duck Unknown Types";
 			this.displayJsDuckErrors.UseVisualStyleBackColor = true;
-			// 
-			// generatePrivateMembers
-			// 
-			this.generatePrivateMembers.AutoSize = true;
-			this.generatePrivateMembers.Checked = true;
-			this.generatePrivateMembers.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.generatePrivateMembers.Location = new System.Drawing.Point(16, 128);
-			this.generatePrivateMembers.Name = "generatePrivateMembers";
-			this.generatePrivateMembers.Size = new System.Drawing.Size(199, 21);
-			this.generatePrivateMembers.TabIndex = 7;
-			this.generatePrivateMembers.Text = "Generate private members";
-			this.generatePrivateMembers.UseVisualStyleBackColor = true;
 			// 
 			// GeneratorForm
 			// 
