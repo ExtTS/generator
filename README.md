@@ -14,7 +14,7 @@ Best way to understand how to use the definitions are examples here:
 - [Example in Ext.JS 5.0.1](https://github.com/ExtTS/example-project-501)  
 - [Example in Ext.JS 6.0.1 classic](https://github.com/ExtTS/example-project-601-classic)  
 - [Example in Ext.JS 6.0.1 modern](https://github.com/ExtTS/example-project-601-modern)  
-- [Example in Ext.JS 6.2.0 classic](https://github.com/ExtTS/example-project-620-classic)  
+- [**Example in Ext.JS 6.2.0 classic**](https://github.com/ExtTS/example-project-620-classic)  
 - [Example in Ext.JS 6.2.0 modern](https://github.com/ExtTS/example-project-620-modern)  
 - [Example in Ext.JS 7.0.0 classic](https://github.com/ExtTS/example-project-700-classic)  
 - [Example in Ext.JS 7.0.0 modern](https://github.com/ExtTS/example-project-700-modern)  
