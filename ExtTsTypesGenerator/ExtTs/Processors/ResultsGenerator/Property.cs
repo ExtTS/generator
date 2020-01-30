@@ -13,11 +13,13 @@ namespace ExtTs.Processors {
 		protected void generateClassProperty (ExtClass extClass, Property prop, bool classProcessing = true) {
 			if (this.processor.GenerateJsDocs) { 
 				if (prop.SingletonInstance != null) { 
-					// Generate TypeScript doc comments for singleton class instance:
-					this.generateClassDocs(prop.SingletonInstance, true);
+					if (prop.SingletonInstance.HasMembers && !prop.SingletonInstance.Private)
+						// Generate TypeScript doc comments for singleton class instance:
+						this.generateClassDocs(prop.SingletonInstance, true);
 				} else {
-					// Generate TypeScript doc comments for standard property:
-					this.generatePropertyJsDocs(extClass, prop, classProcessing);
+					if (!extClass.Private)
+						// Generate TypeScript doc comments for standard property:
+						this.generatePropertyJsDocs(extClass, prop, classProcessing);
 				}
 			}
 			// generate TypeScript definition code:

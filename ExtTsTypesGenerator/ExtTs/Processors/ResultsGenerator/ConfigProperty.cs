@@ -11,7 +11,7 @@ using System.Text;
 namespace ExtTs.Processors {
 	public partial class ResultsGenerator {
 		protected void generateInterfacePropertyConfiguration (ExtClass extClass, ConfigProperty configProp) {
-			if (this.processor.GenerateJsDocs) {
+			if (this.processor.GenerateJsDocs && !extClass.Private) {
 				// Generate TypeScript doc comments for standard property:
 				this.generateConfigPropertyJsDocs(extClass, configProp);
 			}

@@ -12,7 +12,7 @@ namespace ExtTs.Processors {
 	public partial class ResultsGenerator {
 		protected void generateInterfaceEvent (ExtClass extClass, Event eventVariant) {
 			// Generate TypeScript doc comments for standard configuration:
-			if (this.processor.GenerateJsDocs)
+			if (this.processor.GenerateJsDocs && !extClass.Private)
 				this.generateEventJsDocs(extClass, eventVariant);
 			// generate TypeScript definition code:
 			string line = eventVariant.Name + "? ("

@@ -12,7 +12,7 @@ namespace ExtTs.Processors {
 	public partial class ResultsGenerator {
 		protected void generateInterfaceConfiguration (ExtClass extClass, Configuration config) {
 			// Generate TypeScript doc comments for standard configuration:
-			if (this.processor.GenerateJsDocs)
+			if (this.processor.GenerateJsDocs && !extClass.Private)
 				this.generateConfigurationJsDocs(extClass, config);
 			// generate TypeScript definition code:
 			string line = config.Name + (config.Required ? ": " : "?: ") 

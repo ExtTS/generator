@@ -36,7 +36,7 @@ namespace ExtTs.Processors {
 					previouslyRenderedParams == methodVariant.ParamsRendered
 				);
 				previouslyRenderedParams = methodVariant.ParamsRendered;
-				if (this.processor.GenerateJsDocs && !theSameParams) {
+				if (this.processor.GenerateJsDocs && !theSameParams && !extClass.Private) {
 					methodVariantClone = methodVariant.Clone();
 					methodVariantClone.ReturnTypes = theSameParamsReturns[methodVariant.ParamsRendered];
 					this.generateMethodJsDocs(extClass, methodVariantClone);

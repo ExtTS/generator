@@ -12,11 +12,14 @@ namespace ExtTs.Processors {
 	public partial class ResultsGenerator {
 		protected void generateClass (ExtClass extClass) {
 			ExtClass parentClass;
-			
 			//if (extClass.Name.FullName == "Ext.draw.TimingFunctions")
 			//	Debugger.Break();
-			
-			if (this.processor.GenerateJsDocs)
+			if (
+				this.processor.GenerateJsDocs && 
+				!extClass.Private && 
+				extClass.HasMembers && 
+				extClass.ClassType != ClassType.CLASS_ALIAS
+			)
 				this.generateClassDocs(extClass);
 			if (
 				extClass.ClassType == ClassType.CLASS_STANDARD ||

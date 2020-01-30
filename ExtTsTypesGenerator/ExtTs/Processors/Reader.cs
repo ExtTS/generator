@@ -50,7 +50,7 @@ namespace ExtTs.Processors {
 			this.jsDocsUrlBase = "";
 			this.jsDocsLinksNewerFormat = false;
 			this.readingThreadsCount = Environment.ProcessorCount;
-			//this.readingThreadsCount = 1; // debuging
+			this.readingThreadsCount = 1; // debuging
 			this.readingThreads = new List<Thread>();
 			this.readingLock = new object { };
 			this.progressHandlingLock = new object { };

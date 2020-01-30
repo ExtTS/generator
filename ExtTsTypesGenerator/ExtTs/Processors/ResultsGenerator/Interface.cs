@@ -11,14 +11,16 @@ using System.Text;
 namespace ExtTs.Processors {
 	public partial class ResultsGenerator {
 		protected void generateInterface (ExtClass extClass) {
-			
 			//if (extClass.Name.FullName == "Ext.draw.TimingFunctions")
 			//	Debugger.Break();
-			
 			if (extClass.ClassType == ClassType.CLASS_CONSTANT_ALIAS) {
 				this.generateInterfaceOpenClose(extClass);
 			} else {
-				if (this.processor.GenerateJsDocs)
+				if (
+					this.processor.GenerateJsDocs && 
+					!extClass.Private && 
+					extClass.HasMembers
+				)
 					this.generateInterfaceDocs(extClass);
 				this.generateInterfaceOpen(extClass);
 				this.generateInterfaceMembers(extClass);
