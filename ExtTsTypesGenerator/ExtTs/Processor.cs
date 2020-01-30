@@ -43,6 +43,7 @@ namespace ExtTs {
 		protected internal ExtJsPackage[] SuportedPackages = null;
 		protected internal bool GenerateJsDocs = true;
 		protected internal bool GenerateSingleFile = true;
+		protected internal bool GeneratePrivateMembers = false;
 		protected internal bool DebuggingDisplayJsDuckErrors = false;
 		protected internal bool DebuggingTmpDirDataUse = false;
 		protected FinishedHandler finishedHandler;
@@ -158,6 +159,10 @@ namespace ExtTs {
 		}
 		public Processor SetProcessingInfoHandler (ProcessingInfoHandler processingInfoHandler) {
 			this.ProcessingInfoHandler = processingInfoHandler;
+			return this;
+		}
+		public Processor SetGeneratePrivateMembers(bool generatePrivateMembers = true) {
+			this.GeneratePrivateMembers = generatePrivateMembers;
 			return this;
 		}
 		public Processor SetDebuggingDisplayJsDuckErrors(bool debuggingDisplayJsDuckErrors = true) {

@@ -97,7 +97,7 @@ namespace ExtTs.Processors {
 		}
 		protected void lastFileInPackageFinished(int threadIndex) {
 			if (this.readingThreadsCount > 1)
-				for (int i = 0; i < this.readingThreadsCount; i++) 
+				for (int i = 0; i < Math.Min(this.readingThreadsCount, this.readingThreads.Count); i++) 
 					if (i != threadIndex)
 						this.readingThreads[i].Abort();
 			this.readingThreads = new List<Thread>();

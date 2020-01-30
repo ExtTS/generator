@@ -50,11 +50,12 @@ namespace Generator {
 			this.initFormControlsValues();
 #if DEBUG
 			/*
-			this.versionSelect.Text = "5.0.1";
+			this.versionSelect.Text = "6.2.0";
 			this.toolkitSelect.Enabled = true;
-			//this.toolkitSelect.Text = "Classic";
+			this.toolkitSelect.Text = "Classic";
 			//this.toolkitSelect.Text = "Modern";
 			this.generateSingleFile.Checked = true;
+			this.generatePrivateMembers.Checked = false;
 			this.packageAMF.Checked = true;
 			this.packageCharts.Checked = true;
 			this.packageCore.Checked = true;
@@ -63,10 +64,10 @@ namespace Generator {
 			this.packageSOAP.Checked = true;
 			this.packageUX.Checked = true;
 			this.displayJsDuckErrors.Checked = true;
-			this.sourceZipFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-5.0.1-gpl.zip";
-			this.resultDirFullPath.Text = @"c:/Users/Administrator/Desktop/Ext.TS/example-project-501/js/types/";
+			this.sourceZipFullPath.Text = @"c:/Users/Administrator/Desktop/ext-6.2.0-gpl.zip";
+			this.resultDirFullPath.Text = @"c:/Users/Administrator/Desktop/example-project-620-classic/js/types/";
 			this.checkInputs();
-			//this.processor.SetDebuggingTmpDirDataUse(true);
+			this.processor.SetDebuggingTmpDirDataUse(true);
 			*/
 #endif
 		}
@@ -270,6 +271,7 @@ namespace Generator {
 			// Clear progress text:
 			this.progressText.Text = "";
 			// Set handlers: 
+			this.processor.SetGeneratePrivateMembers(this.generatePrivateMembers.Checked);
 			this.processor.SetDebuggingDisplayJsDuckErrors(this.displayJsDuckErrors.Checked);
 			this.processor.SetUserPromptHandler(this.userPrompt);
 			this.processor.SetProcessingInfoHandler(this.displayProgress);
@@ -456,6 +458,7 @@ namespace Generator {
 				"versionSelect",
 				"toolkitSelect",
 				"generateDocs",
+				"generatePrivateMembers",
 				"overwriteExisting",
 				"generateSingleFile",
 				"customDocsUrl",

@@ -66,6 +66,7 @@ namespace Generator
 			this.customDocsUrl = new System.Windows.Forms.TextBox();
 			this.devGroupBox = new System.Windows.Forms.GroupBox();
 			this.displayJsDuckErrors = new System.Windows.Forms.CheckBox();
+			this.generatePrivateMembers = new System.Windows.Forms.CheckBox();
 			this.progressGroupBox.SuspendLayout();
 			this.settingsGroupBox.SuspendLayout();
 			this.pathsGroupBox.SuspendLayout();
@@ -128,7 +129,7 @@ namespace Generator
 			this.progressGroupBox.Controls.Add(this.progressStep);
 			this.progressGroupBox.Controls.Add(this.totalProgressLabel);
 			this.progressGroupBox.Controls.Add(this.progressTotal);
-			this.progressGroupBox.Location = new System.Drawing.Point(12, 455);
+			this.progressGroupBox.Location = new System.Drawing.Point(12, 481);
 			this.progressGroupBox.Name = "progressGroupBox";
 			this.progressGroupBox.Size = new System.Drawing.Size(545, 260);
 			this.progressGroupBox.TabIndex = 9;
@@ -177,6 +178,7 @@ namespace Generator
 			// 
 			// settingsGroupBox
 			// 
+			this.settingsGroupBox.Controls.Add(this.generatePrivateMembers);
 			this.settingsGroupBox.Controls.Add(this.toolkitLabel);
 			this.settingsGroupBox.Controls.Add(this.toolkitSelect);
 			this.settingsGroupBox.Controls.Add(this.overwriteExisting);
@@ -186,7 +188,7 @@ namespace Generator
 			this.settingsGroupBox.Controls.Add(this.versionSelect);
 			this.settingsGroupBox.Location = new System.Drawing.Point(12, 12);
 			this.settingsGroupBox.Name = "settingsGroupBox";
-			this.settingsGroupBox.Size = new System.Drawing.Size(265, 191);
+			this.settingsGroupBox.Size = new System.Drawing.Size(265, 217);
 			this.settingsGroupBox.TabIndex = 10;
 			this.settingsGroupBox.TabStop = false;
 			this.settingsGroupBox.Text = "1. Configuration:";
@@ -214,7 +216,7 @@ namespace Generator
 			this.overwriteExisting.AutoSize = true;
 			this.overwriteExisting.Checked = true;
 			this.overwriteExisting.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.overwriteExisting.Location = new System.Drawing.Point(16, 128);
+			this.overwriteExisting.Location = new System.Drawing.Point(16, 155);
 			this.overwriteExisting.Name = "overwriteExisting";
 			this.overwriteExisting.Size = new System.Drawing.Size(231, 21);
 			this.overwriteExisting.TabIndex = 4;
@@ -226,7 +228,7 @@ namespace Generator
 			this.generateSingleFile.AutoSize = true;
 			this.generateSingleFile.Checked = true;
 			this.generateSingleFile.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.generateSingleFile.Location = new System.Drawing.Point(16, 155);
+			this.generateSingleFile.Location = new System.Drawing.Point(16, 182);
 			this.generateSingleFile.Name = "generateSingleFile";
 			this.generateSingleFile.Size = new System.Drawing.Size(236, 21);
 			this.generateSingleFile.TabIndex = 3;
@@ -270,7 +272,7 @@ namespace Generator
 			this.pathsGroupBox.Controls.Add(this.btnSelectSouzceZip);
 			this.pathsGroupBox.Controls.Add(this.sourceZipFullPath);
 			this.pathsGroupBox.Controls.Add(this.resultDirFullPath);
-			this.pathsGroupBox.Location = new System.Drawing.Point(12, 308);
+			this.pathsGroupBox.Location = new System.Drawing.Point(12, 334);
 			this.pathsGroupBox.Name = "pathsGroupBox";
 			this.pathsGroupBox.Size = new System.Drawing.Size(545, 139);
 			this.pathsGroupBox.TabIndex = 11;
@@ -356,7 +358,7 @@ namespace Generator
 			// packageGoogle
 			// 
 			this.packageGoogle.AutoSize = true;
-			this.packageGoogle.Location = new System.Drawing.Point(112, 27);
+			this.packageGoogle.Location = new System.Drawing.Point(18, 108);
 			this.packageGoogle.Name = "packageGoogle";
 			this.packageGoogle.Size = new System.Drawing.Size(76, 21);
 			this.packageGoogle.TabIndex = 8;
@@ -366,7 +368,7 @@ namespace Generator
 			// packageLegacy
 			// 
 			this.packageLegacy.AutoSize = true;
-			this.packageLegacy.Location = new System.Drawing.Point(112, 54);
+			this.packageLegacy.Location = new System.Drawing.Point(139, 27);
 			this.packageLegacy.Name = "packageLegacy";
 			this.packageLegacy.Size = new System.Drawing.Size(76, 21);
 			this.packageLegacy.TabIndex = 9;
@@ -376,7 +378,7 @@ namespace Generator
 			// packageUX
 			// 
 			this.packageUX.AutoSize = true;
-			this.packageUX.Location = new System.Drawing.Point(207, 27);
+			this.packageUX.Location = new System.Drawing.Point(139, 81);
 			this.packageUX.Name = "packageUX";
 			this.packageUX.Size = new System.Drawing.Size(49, 21);
 			this.packageUX.TabIndex = 11;
@@ -386,7 +388,7 @@ namespace Generator
 			// packageSOAP
 			// 
 			this.packageSOAP.AutoSize = true;
-			this.packageSOAP.Location = new System.Drawing.Point(112, 81);
+			this.packageSOAP.Location = new System.Drawing.Point(139, 54);
 			this.packageSOAP.Name = "packageSOAP";
 			this.packageSOAP.Size = new System.Drawing.Size(68, 21);
 			this.packageSOAP.TabIndex = 10;
@@ -402,9 +404,9 @@ namespace Generator
 			this.packagesGroupBox.Controls.Add(this.packageLegacy);
 			this.packagesGroupBox.Controls.Add(this.packageCharts);
 			this.packagesGroupBox.Controls.Add(this.packageGoogle);
-			this.packagesGroupBox.Location = new System.Drawing.Point(292, 12);
+			this.packagesGroupBox.Location = new System.Drawing.Point(292, 10);
 			this.packagesGroupBox.Name = "packagesGroupBox";
-			this.packagesGroupBox.Size = new System.Drawing.Size(265, 114);
+			this.packagesGroupBox.Size = new System.Drawing.Size(265, 141);
 			this.packagesGroupBox.TabIndex = 12;
 			this.packagesGroupBox.TabStop = false;
 			this.packagesGroupBox.Text = "2. Additional packages:";
@@ -413,7 +415,7 @@ namespace Generator
 			// 
 			this.customDocsUrlGroupBox.Controls.Add(this.customDocsUrlLabel);
 			this.customDocsUrlGroupBox.Controls.Add(this.customDocsUrl);
-			this.customDocsUrlGroupBox.Location = new System.Drawing.Point(12, 213);
+			this.customDocsUrlGroupBox.Location = new System.Drawing.Point(12, 239);
 			this.customDocsUrlGroupBox.Name = "customDocsUrlGroupBox";
 			this.customDocsUrlGroupBox.Size = new System.Drawing.Size(545, 87);
 			this.customDocsUrlGroupBox.TabIndex = 13;
@@ -439,7 +441,7 @@ namespace Generator
 			// devGroupBox
 			// 
 			this.devGroupBox.Controls.Add(this.displayJsDuckErrors);
-			this.devGroupBox.Location = new System.Drawing.Point(292, 136);
+			this.devGroupBox.Location = new System.Drawing.Point(292, 162);
 			this.devGroupBox.Name = "devGroupBox";
 			this.devGroupBox.Size = new System.Drawing.Size(265, 67);
 			this.devGroupBox.TabIndex = 13;
@@ -456,11 +458,23 @@ namespace Generator
 			this.displayJsDuckErrors.Text = "Display JS Duck Unknown Types";
 			this.displayJsDuckErrors.UseVisualStyleBackColor = true;
 			// 
+			// generatePrivateMembers
+			// 
+			this.generatePrivateMembers.AutoSize = true;
+			this.generatePrivateMembers.Checked = true;
+			this.generatePrivateMembers.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.generatePrivateMembers.Location = new System.Drawing.Point(16, 128);
+			this.generatePrivateMembers.Name = "generatePrivateMembers";
+			this.generatePrivateMembers.Size = new System.Drawing.Size(199, 21);
+			this.generatePrivateMembers.TabIndex = 7;
+			this.generatePrivateMembers.Text = "Generate private members";
+			this.generatePrivateMembers.UseVisualStyleBackColor = true;
+			// 
 			// GeneratorForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(571, 728);
+			this.ClientSize = new System.Drawing.Size(571, 755);
 			this.Controls.Add(this.devGroupBox);
 			this.Controls.Add(this.customDocsUrlGroupBox);
 			this.Controls.Add(this.packagesGroupBox);
@@ -526,6 +540,7 @@ namespace Generator
 		private System.Windows.Forms.ComboBox toolkitSelect;
 		private System.Windows.Forms.GroupBox devGroupBox;
 		protected System.Windows.Forms.CheckBox displayJsDuckErrors;
+		protected System.Windows.Forms.CheckBox generatePrivateMembers;
 	}
 }
 

@@ -184,6 +184,7 @@ namespace ExtTs.Processors {
 
 		protected void generateInterfaceDefinitions(ExtClass extClass) {
 			bool clsProcessing = true;
+			bool priv = this.processor.GeneratePrivateMembers;
 			// Generate indexers:
 			foreach (var indexerItem in extClass.Members.Indexers) 
 				this.generateMemberIndexer(extClass, indexerItem.Value as Indexer);
@@ -191,52 +192,53 @@ namespace ExtTs.Processors {
 			// Generate static properties:
 			this.generateProperties(extClass, false, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PUBLIC);
 			this.generateProperties(extClass, false, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PROTECTED);
-			this.generateProperties(extClass, false, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
+			if (priv) this.generateProperties(extClass, false, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
 			this.generateProperties(extClass, false, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PROTECTED);
-			this.generateProperties(extClass, false, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
-			//this.generateClassProperties(extClass, false, clsProcessing, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
+			if (priv) this.generateProperties(extClass, false, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
+			// this.generateClassProperties(extClass, false, clsProcessing, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
 
 			// Generate instance properties:
 			this.generateProperties(extClass, true, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PUBLIC);
 			this.generateProperties(extClass, true, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PROTECTED);
-			this.generateProperties(extClass, true, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
+			if (priv) this.generateProperties(extClass, true, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
 			this.generateProperties(extClass, true, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PROTECTED);
-			this.generateProperties(extClass, true, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
-			//this.generateClassProperties(extClass, true, clsProcessing, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
+			if (priv) this.generateProperties(extClass, true, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
+			// this.generateClassProperties(extClass, true, clsProcessing, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
 
 			// Generate static methods:
 			this.generateMethods(extClass, false, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PUBLIC);
 			this.generateMethods(extClass, false, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PROTECTED);
-			this.generateMethods(extClass, false, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
+			if (priv) this.generateMethods(extClass, false, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
 			this.generateMethods(extClass, false, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PROTECTED);
-			this.generateMethods(extClass, false, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
-			//this.generateClassMethods(extClass, false, clsProcessing, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
+			if (priv) this.generateMethods(extClass, false, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
+			// this.generateClassMethods(extClass, false, clsProcessing, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
 
 			// Generate instance methods:
 			this.generateMethods(extClass, true, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PUBLIC);
 			this.generateMethods(extClass, true, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PROTECTED);
-			this.generateMethods(extClass, true, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
+			if (priv) this.generateMethods(extClass, true, clsProcessing, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
 			this.generateMethods(extClass, true, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PROTECTED);
-			this.generateMethods(extClass, true, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
-			//this.generateClassMethods(extClass, true, clsProcessing, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
+			if (priv) this.generateMethods(extClass, true, clsProcessing, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
+			// this.generateClassMethods(extClass, true, clsProcessing, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
 		}
 
 		protected void generateInterfaceStaticPropertiesAndMethods(ExtClass extClass) {
+			bool priv = this.processor.GeneratePrivateMembers;
 			// Generate static properties:
 			this.generateProperties(extClass, false, false, AccessModifier.PUBLIC, AccessModifier.PUBLIC);
 			this.generateProperties(extClass, false, false, AccessModifier.PUBLIC, AccessModifier.PROTECTED);
-			this.generateProperties(extClass, false, false, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
+			if (priv) this.generateProperties(extClass, false, false, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
 			this.generateProperties(extClass, false, false, AccessModifier.PROTECTED, AccessModifier.PROTECTED);
-			this.generateProperties(extClass, false, false, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
-			//this.generateClassProperties(extClass, false, false,AccessModifier.PRIVATE, AccessModifier.PRIVATE);
+			if (priv) this.generateProperties(extClass, false, false, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
+			// this.generateClassProperties(extClass, false, false,AccessModifier.PRIVATE, AccessModifier.PRIVATE);
 			
 			// Generate static methods:
 			this.generateMethods(extClass, false, false, AccessModifier.PUBLIC, AccessModifier.PUBLIC);
 			this.generateMethods(extClass, false, false, AccessModifier.PUBLIC, AccessModifier.PROTECTED);
-			this.generateMethods(extClass, false, false, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
+			if (priv) this.generateMethods(extClass, false, false, AccessModifier.PUBLIC, AccessModifier.PRIVATE);
 			this.generateMethods(extClass, false, false, AccessModifier.PROTECTED, AccessModifier.PROTECTED);
-			this.generateMethods(extClass, false, false, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
-			//this.generateClassMethods(extClass, false, false, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
+			if (priv) this.generateMethods(extClass, false, false, AccessModifier.PROTECTED, AccessModifier.PRIVATE);
+			// this.generateClassMethods(extClass, false, false, AccessModifier.PRIVATE, AccessModifier.PRIVATE);
 		}
 
 		protected void generateInterfaceEvents(ExtClass extClass) {

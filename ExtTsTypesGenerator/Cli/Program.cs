@@ -26,6 +26,7 @@ namespace Cli {
 					ExtJsPackage.CORE|ExtJsPackage.AMF|ExtJsPackage.CHARTS|ExtJsPackage.GOOGLE|ExtJsPackage.LEGACY|ExtJsPackage.SOAP|ExtJsPackage.UX
 				)
 				.SetGenerateJsDocs(true)
+				.SetGeneratePrivateMembers(false)
 				.SetGenerateSingleFile(true)
 				.SetSourcePackageFullPath(@"c:/Users/Administrator/Desktop/Ext.TS/gpl-zips/ext-7.0.0-trial.zip")
 				.SetResultsDirFullPath(@"c:/Users/Administrator/Desktop/Ext.TS/example-project-700-classic/js/types/", true)
