@@ -22,8 +22,8 @@ namespace ExtTs.Processors {
 			)
 				this.generateClassDocs(extClass);
 			if (
-				extClass.ClassType == ClassType.CLASS_STANDARD ||
-				extClass.ClassType == ClassType.CLASS_DEFINITIONS
+				extClass.ClassType == ClassType.CLASS_STANDARD /*||
+				extClass.ClassType == ClassType.CLASS_DEFINITIONS*/
 			) {
 				// Singleton and non-singleton classes:
 				if (extClass.HasMembers && !extClass.Private) {
@@ -90,7 +90,7 @@ namespace ExtTs.Processors {
 			string line = "";
 			if (!extClass.Name.IsInModule)
 				line += "declare ";
-			if ((extClass.Singleton && extClass.Name.FullName != "Ext") || extClass.ClassType == ClassType.CLASS_DEFINITIONS) {
+			if ((extClass.Singleton && extClass.Name.FullName != "Ext") /*|| extClass.ClassType == ClassType.CLASS_DEFINITIONS*/) {
 				// Render singleton classes as interfaces and public static props on classes named as it's namespace:
 				line += "interface " + extClass.Name.ClassName;
 			} else {
@@ -107,7 +107,7 @@ namespace ExtTs.Processors {
 			string line = "";
 			if (!extClass.Name.IsInModule)
 				line += "declare ";
-			if ((extClass.Singleton && extClass.Name.FullName != "Ext") || extClass.ClassType == ClassType.CLASS_DEFINITIONS) {
+			if ((extClass.Singleton && extClass.Name.FullName != "Ext") /*|| extClass.ClassType == ClassType.CLASS_DEFINITIONS*/) {
 				// Render singleton classes as interfaces and public static props on classes named as it's namespace:
 				line += "interface " + extClass.Name.ClassName;
 			} else {

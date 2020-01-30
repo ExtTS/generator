@@ -272,7 +272,7 @@ namespace ExtTs.Processors {
 								Default = "Ext.Base",
 								Static = false,
 								Type = extClass.Name.FullName + SpecialsGenerator.STATICS_NAME_ADDITION,
-								Owner = extClass.Name.FullName,
+								Owner = selfProp.Owner,
 							}, 
 							extObject.Name, 
 							false
@@ -298,7 +298,7 @@ namespace ExtTs.Processors {
 									Doc = null,
 									Type = extClass.Name.FullName + SpecialsGenerator.STATICS_NAME_ADDITION
 								},
-								Owner = extClass.Name.FullName,
+								Owner = staticsMethod.Owner,
 							}, 
 							extObject.Name, 
 							false

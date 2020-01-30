@@ -67,7 +67,7 @@ namespace Generator {
 			this.sourceZipFullPath.Text = @"c:/Users/Administrator/Desktop/ext-6.2.0-gpl.zip";
 			this.resultDirFullPath.Text = @"c:/Users/Administrator/Desktop/example-project-620-classic/js/types/";
 			this.checkInputs();
-			this.processor.SetDebuggingTmpDirDataUse(true);
+			//this.processor.SetDebuggingTmpDirDataUse(true);
 			*/
 #endif
 		}

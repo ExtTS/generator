@@ -5,6 +5,7 @@ using ExtTs.ExtTypes.ExtClasses;
 using ExtTs.ExtTypes.Structs;
 using ExtTs.ExtTypes.Enums;
 using ExtTs.ExtTypes;
+using System.Diagnostics;
 
 namespace ExtTs.Processors {
 	public partial class Reader {
@@ -50,6 +51,8 @@ namespace ExtTs.Processors {
 		protected void readAndAddProp(ref ExtClass extClass, ExtObjectMember member, ParsedTypes types, bool ownedByCurrent, bool required) {
 			string name = this.sanitizeName(member.Name);
 			string[] docs = this.readJsDocs(member.Doc, JsDocsType.PROPERTY, extClass.Name.FullName, name);
+			//if (extClass.Name.FullName == "Ext.Base")
+			//	Debugger.Break();
 			Property newPropItem = new Property(
 				name, types.CfgOrProp, docs, member.Owner, ownedByCurrent
 			);

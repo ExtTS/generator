@@ -37,9 +37,13 @@ namespace ExtTs.Processors {
 				);
 				previouslyRenderedParams = methodVariant.ParamsRendered;
 				if (this.processor.GenerateJsDocs && !theSameParams && !extClass.Private) {
-					methodVariantClone = methodVariant.Clone();
-					methodVariantClone.ReturnTypes = theSameParamsReturns[methodVariant.ParamsRendered];
-					this.generateClassMethodWithPropertyJsDocs(extClass, methodVariantClone, mixedProp);
+					//if (methodVariant.OwnedByCurrent) { 
+						methodVariantClone = methodVariant.Clone();
+						methodVariantClone.ReturnTypes = theSameParamsReturns[methodVariant.ParamsRendered];
+						this.generateClassMethodWithPropertyJsDocs(extClass, methodVariantClone, mixedProp);
+					/*} else {
+						this.writeResultLine("/ ** @inheritdoc * /");
+					}*/
 				}
 				// Generate TypeScript definition code:
 				// Generate method type part:

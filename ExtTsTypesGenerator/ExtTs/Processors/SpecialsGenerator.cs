@@ -176,8 +176,12 @@ namespace ExtTs.Processors {
 				if (!firstMethodVariant.IsTemplate)
 					continue;
 				methodMemberVariants = new List<Member>();
-				foreach (var methodVariant in methodMemberItem.Value)
-					methodMemberVariants.Add((methodVariant as Method).Clone());
+				Method newMethodVariant;
+				foreach (var methodVariant in methodMemberItem.Value) {
+					newMethodVariant = (methodVariant as Method).Clone();
+					newMethodVariant.OwnedByCurrent = true; // always render js docs for config interfaces, there is no inheritance
+					methodMemberVariants.Add(newMethodVariant);
+				}
 				configClass.Members.Methods.Add(
 					methodMemberItem.Key,
 					methodMemberVariants
@@ -210,14 +214,18 @@ namespace ExtTs.Processors {
 				) {
 					foreach (var methodVariant in methodMemberItem.Value) {
 						newMethodVariant = (methodVariant as Method).Clone();
+						newMethodVariant.OwnedByCurrent = true; // always render js docs for config interfaces, there is no inheritance
 						newMethodVariant.ReturnTypes = new List<string>() {
 							standardClass.Name.FullName + SpecialsGenerator.STATICS_NAME_ADDITION
 						};
 						methodMemberVariants.Add(newMethodVariant);
 					}
 				} else {
-					foreach (var methodVariant in methodMemberItem.Value) 
-						methodMemberVariants.Add((methodVariant as Method).Clone());
+					foreach (var methodVariant in methodMemberItem.Value) {
+						newMethodVariant = (methodVariant as Method).Clone();
+						newMethodVariant.OwnedByCurrent = true; // always render js docs for config interfaces, there is no inheritance
+						methodMemberVariants.Add(newMethodVariant);
+					}
 				}
 				// Check if there is already any previous template method:
 				if (configClass.Members.Methods.ContainsKey(methodName))
@@ -402,20 +410,28 @@ namespace ExtTs.Processors {
 							standardClass.Name.FullName
 						)
 					};
+					Property propClone;
 					foreach (var propMemberItem in standardClass.Members.PropertiesStatic) {
 						prop = propMemberItem.Value as Property;
-						if (prop.Renderable)
+						if (prop.Renderable) {
+							propClone = prop.Clone();
+							propClone.OwnedByCurrent = true; // always render js docs for statics interfaces, there is no inheritance
 							staticsClass.Members.PropertiesStatic.Add(
 								propMemberItem.Key,
-								prop.Clone()
+								propClone
 							);
+						}
 					}
+					Method methodVariantClone;
 					foreach (var methodMemberItem in standardClass.Members.MethodsStatic) {
 						methodMemberVariants = new List<Member>();
 						foreach (Member methodMember in methodMemberItem.Value) {
 							methodVariant = methodMember as Method;
-							if (methodVariant.Renderable)
-								methodMemberVariants.Add(methodVariant.Clone());
+							if (methodVariant.Renderable) {
+								methodVariantClone = methodVariant.Clone();
+								methodVariantClone.OwnedByCurrent = true; // always render js docs for statics interfaces, there is no inheritance
+								methodMemberVariants.Add(methodVariantClone);
+							}
 						}
 						if (methodMemberVariants.Count > 0)
 							staticsClass.Members.MethodsStatic.Add(
@@ -512,7 +528,7 @@ namespace ExtTs.Processors {
 					newPropTypes,
 					extClassConfig.Doc,
 					extClassConfig.Owner.FullName,
-					false
+					true
 				);
 				newProp.AccessModJs = AccessModifier.PROTECTED;
 				newProp.AccessModTs = AccessModifier.PROTECTED;
@@ -545,6 +561,7 @@ namespace ExtTs.Processors {
 							mixedStandardClassOrParentMethods[i] = mixedStandardClassOrParentMethod;
 							mixedStandardClassOrParentMethodClone = mixedStandardClassOrParentMethod.Clone();
 							mixedStandardClassOrParentMethodClone.ExistenceReason = ExistenceReasonType.NATURAL;
+							mixedStandardClassOrParentMethodClone.OwnedByCurrent = true; // always render js docs for @mixed
 							definitionsClass.AddMemberMethod(mixedStandardClassOrParentMethodClone);
 						}
 						definitionsClass.AddMemberProperty(newProp);
@@ -557,6 +574,7 @@ namespace ExtTs.Processors {
 							mixedStandardClassOrParentMethods[i] = mixedStandardClassOrParentMethod;
 							mixedStandardClassOrParentMethodClone = mixedStandardClassOrParentMethod.Clone();
 							mixedStandardClassOrParentMethodClone.ExistenceReason = ExistenceReasonType.NATURAL;
+							mixedStandardClassOrParentMethodClone.OwnedByCurrent = true; // always render js docs for @mixed
 							definitionsClass.AddMemberMethod(mixedStandardClassOrParentMethodClone);
 								
 						}

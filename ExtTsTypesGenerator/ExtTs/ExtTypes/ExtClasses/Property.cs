@@ -27,7 +27,7 @@ namespace ExtTs.ExtTypes.ExtClasses {
 			string[] doc = null, 
 			string ownerFullName = "", 
 			bool ownedByCurrent = false
-		) :base(name, doc, ownerFullName) {
+		) :base(name, doc, ownerFullName, ownedByCurrent) {
 			this.Types = new Dictionary<string, ExistenceReason>();
 			foreach (string type in types)
 				this.Types.Add(type, new ExistenceReason(ExistenceReasonType.NATURAL));

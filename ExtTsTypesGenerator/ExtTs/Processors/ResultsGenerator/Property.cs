@@ -17,9 +17,14 @@ namespace ExtTs.Processors {
 						// Generate TypeScript doc comments for singleton class instance:
 						this.generateClassDocs(prop.SingletonInstance, true);
 				} else {
-					if (!extClass.Private)
+					//if (extClass.Name.FullName == "Ext.Base")
+					//	Debugger.Break();
+					if (prop.OwnedByCurrent) { 
 						// Generate TypeScript doc comments for standard property:
 						this.generatePropertyJsDocs(extClass, prop, classProcessing);
+					} else {
+						this.writeResultLine("/** @inheritdoc */");
+					}
 				}
 			}
 			// generate TypeScript definition code:

@@ -106,6 +106,7 @@ namespace ExtTs.Processors {
 				// because there was last param with standard param 
 				// syntax mixed with spread param syntax:
 				Method itemClone = item.Clone();
+				itemClone.OwnedByCurrent = item.OwnedByCurrent;
 				itemClone.Params = funcParamsSyntaxCollections.SpreadParamsSyntax;
 				extClass.AddMemberMethod(itemClone);
 			}

@@ -136,6 +136,7 @@ namespace ExtTs.Processors {
 				currentMethodVariant = (currentMethodMember as Method).Clone();
 				currentMethodVariant.ReturnTypes = new List<string>() { currentExtClass.Name.FullName };
 				currentMethodVariant.Renderable = true;
+				currentMethodVariant.OwnedByCurrent = (currentMethodMember as Method).OwnedByCurrent;
 				if (highestAc != AccessModifier.NONE)
 					currentMethodVariant.AccessModTs = highestAc;
 				result.Add(currentMethodVariant);
@@ -148,6 +149,7 @@ namespace ExtTs.Processors {
 					newChildCompatibleMethod = (parentMethodMember as Method).Clone();
 					newChildCompatibleMethod.ExistenceReason = ExistenceReasonType.COMPATIBLE_CHAIN;
 					newChildCompatibleMethod.Renderable = true;
+					newChildCompatibleMethod.OwnedByCurrent = (parentMethodMember as Method).OwnedByCurrent;
 					if (highestAc != AccessModifier.NONE)
 						newChildCompatibleMethod.AccessModTs = highestAc;
 					result.Add(newChildCompatibleMethod);
@@ -205,6 +207,7 @@ namespace ExtTs.Processors {
 						foreach (Method parentIncompatibleMethod in parentIncompatibleMethods) {
 							newChildCompatibleMethod = parentIncompatibleMethod.Clone();
 							newChildCompatibleMethod.ExistenceReason = ExistenceReasonType.COMPATIBLE_TYPES;
+							newChildCompatibleMethod.OwnedByCurrent = false;
 							currentMethodVariants.Add(newChildCompatibleMethod);
 						}
 						compatibleMethodVariantAdded = true;
