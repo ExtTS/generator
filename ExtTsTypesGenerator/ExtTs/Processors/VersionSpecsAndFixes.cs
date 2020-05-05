@@ -241,10 +241,14 @@ namespace ExtTs.Processors {
 		public static Dictionary<int, Dictionary<string, string>> TypesFixes = new Dictionary<int, Dictionary<string, string>>() {
 			{ 5, new Dictionary<string, string>() {
 				// 5.0.1:
+				{ "[methodReturn]Ext.form.field.Base.getInputId"                    , "string" },
+
 				{ "[methodParam]Ext.grid.NavigationModel.focusItem.item"			, "Ext.Component" },
 			} },
 			{ 6, new Dictionary<string, string>() {
 				// 6.2.0 classic+modern:
+				{ "[methodReturn]Ext.form.field.Base.getInputId"					, "string" },
+
 				{ "[methodParam]Ext.grid.plugin.RowWidget.getWidget.view"           , "any" },
 				{ "[methodParam]Ext.grid.plugin.RowWidget.getWidget.record"			, "any" },
 				{ "[methodReturn]Ext.grid.plugin.RowWidget.getWidget"				, "any" },
@@ -266,6 +270,8 @@ namespace ExtTs.Processors {
 			} },
 			{ 7, new Dictionary<string, string>() {
 				// 7.0.0 classic:
+				{ "[methodReturn]Ext.form.field.Base.getInputId"                    , "string" },
+
 				{ "[property]Ext.grid.feature.Feature.Element"          									, "Ext.dom.Element" },
 
 				{ "[methodParam]Ext.ComponentManager.doHandleDocumentMouseDown.e"							, "any" },
